@@ -629,6 +629,72 @@
 
     .btn-copy:hover { background: var(--hover); color: var(--text); }
 
+    .btn-copy:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .btn-added {
+      color: #6dbf7e !important;
+      border-color: rgba(109,191,126,0.3) !important;
+    }
+
+    /* CSV footer */
+    .csv-footer {
+      border-top: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .csv-queue {
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    .csv-queue strong {
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .csv-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 13px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .csv-download-btn:hover:not(:disabled) {
+      background: var(--hover);
+      color: var(--text);
+      border-color: #3a3a3a;
+    }
+
+    .csv-download-btn:disabled { opacity: 0.35; cursor: default; }
+
+    .csv-download-btn.ready {
+      border-color: rgba(201,169,110,0.4);
+      color: var(--gold);
+    }
+
+    .csv-download-btn.ready:hover {
+      background: rgba(201,169,110,0.08);
+      border-color: rgba(201,169,110,0.6);
+    }
+
     /* ─── SCROLLBARS ──────────────────────────────── */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -1019,10 +1085,20 @@
       </div>
       <div class="preview-actions" id="preview-actions">
         <button class="btn-copy" onclick="copyPreview()">Kopiera</button>
-        <button class="btn btn-ghost" style="font-size:11px; padding:5px 10px;">Redigera</button>
+        <button class="btn-copy" id="btn-add-csv" onclick="addToCSV()">+ Lägg till i CSV</button>
       </div>
     </div>
 
+  </div>
+
+  <!-- CSV footer -->
+  <div class="csv-footer">
+    <div class="csv-queue">
+      <strong id="csv-count">0</strong> inlägg i kö
+    </div>
+    <button class="csv-download-btn" id="csv-download-btn" onclick="downloadCSV()" disabled>
+      ↓ Ladda ner CSV
+    </button>
   </div>
 </aside>
 
@@ -1175,6 +1251,76 @@ Länk i bio 👆
       setTimeout(() => { btn.textContent = 'Kopiera'; }, 2000);
     });
   }
+
+  // ─── CSV EXPORT ───────────────────────────────────────
+  let postQueue = [];
+
+  function parsePost(text) {
+    const lines = text.split('\n');
+    const nonEmpty = lines.filter(l => l.trim());
+    const hook = nonEmpty[0] || '';
+    const hashtagLines = lines.filter(l => l.trim().startsWith('#'));
+    const hashtags = hashtagLines.join(' ').trim();
+    const body = lines
+      .slice(lines.indexOf(lines.find(l => l.trim() === hook)) + 1)
+      .filter(l => !l.trim().startsWith('#'))
+      .join('\n')
+      .trim();
+    return { hook, body, hashtags };
+  }
+
+  function addToCSV() {
+    const text = document.getElementById('preview-box').textContent.trim();
+    if (!text || text.startsWith('Välj källor')) return;
+
+    const { hook, body, hashtags } = parsePost(text);
+    const platform = activePlatform === 'linkedin' ? 'LinkedIn' : 'Instagram';
+    postQueue.push({ hook, body, hashtags, platform });
+
+    const btn = document.getElementById('btn-add-csv');
+    btn.textContent = 'Tillagd ✓';
+    btn.classList.add('btn-added');
+    btn.disabled = true;
+
+    updateCSVFooter();
+  }
+
+  function updateCSVFooter() {
+    document.getElementById('csv-count').textContent = postQueue.length;
+    const dlBtn = document.getElementById('csv-download-btn');
+    dlBtn.disabled = postQueue.length === 0;
+    dlBtn.classList.toggle('ready', postQueue.length > 0);
+  }
+
+  function csvCell(val) {
+    return '"' + String(val).replace(/"/g, '""') + '"';
+  }
+
+  function downloadCSV() {
+    if (postQueue.length === 0) return;
+    const headers = ['Hook', 'Text', 'Hashtags', 'Plattform'];
+    const rows = postQueue.map(p =>
+      [p.hook, p.body, p.hashtags, p.platform].map(csvCell).join(',')
+    );
+    const csv = '\ufeff' + [headers.join(','), ...rows].join('\r\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'canva-inlagg.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // Reset CSV button when new post is generated
+  const _origGenerate = generate;
+  generate = function() {
+    const btn = document.getElementById('btn-add-csv');
+    btn.textContent = '+ Lägg till i CSV';
+    btn.classList.remove('btn-added');
+    btn.disabled = false;
+    _origGenerate();
+  };
 
   // Init: expand dokument section
   document.getElementById('dokument').classList.add('open');
