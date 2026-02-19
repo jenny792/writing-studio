@@ -257,6 +257,10 @@
       padding: 40px 60px;
     }
 
+    .main-content.batch-mode {
+      padding: 0;
+    }
+
     .doc-icon { font-size: 32px; margin-bottom: 14px; display: block; }
 
     .doc-title {
@@ -848,21 +852,27 @@
     }
 
     /* ─── BATCH STUDIO ────────────────────────────── */
+
+    /* Batch-vyn får bredare padding än övriga vyer */
+    #view-batch {
+      padding: 0;
+    }
+
     .batch-toolbar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding-bottom: 24px;
+      gap: 10px;
+      padding: 20px 28px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 24px;
+      background: var(--bg);
       flex-wrap: wrap;
     }
 
     .batch-settings {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      flex: 1;
       flex-wrap: wrap;
     }
 
@@ -880,13 +890,15 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%239a9792' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 10px center;
+      transition: border-color 0.15s;
     }
-
+    .batch-type-select:focus { border-color: #3a3a3a; }
     .batch-type-select option { background: #252525; }
 
     .batch-sep {
       width: 1px; height: 20px;
       background: var(--border);
+      flex-shrink: 0;
     }
 
     .count-pills {
@@ -903,16 +915,16 @@
       color: var(--muted);
       cursor: pointer;
       transition: all 0.12s;
+      user-select: none;
     }
-
     .count-pill:hover { color: var(--text); border-color: #3a3a3a; }
-    .count-pill.active { background: var(--surface); color: var(--text); border-color: #3a3a3a; }
+    .count-pill.active { background: var(--surface); color: var(--text); border-color: #444; }
 
     .batch-generate-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 7px 18px;
+      padding: 7px 20px;
       background: var(--gold);
       color: #1a1610;
       border: none;
@@ -921,16 +933,17 @@
       font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: background 0.15s;
+      margin-left: auto;
     }
-
     .batch-generate-btn:hover { background: #d4b580; }
 
     /* Grid */
     .batch-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 14px;
+      padding: 20px 28px 28px;
     }
 
     .batch-card {
@@ -939,19 +952,19 @@
       border-radius: 10px;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.15s, background 0.15s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .batch-card.selected {
-      border-color: rgba(201,169,110,0.55);
-      background: rgba(201,169,110,0.03);
+      border-color: rgba(201,169,110,0.6);
+      box-shadow: 0 0 0 3px rgba(201,169,110,0.07);
     }
 
     .batch-card-header {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 14px;
+      padding: 11px 14px;
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
@@ -963,7 +976,7 @@
     }
 
     .batch-check {
-      width: 16px; height: 16px;
+      width: 15px; height: 15px;
       cursor: pointer;
       accent-color: var(--gold);
       flex-shrink: 0;
@@ -973,18 +986,18 @@
       flex: 1;
       padding: 14px 16px;
       font-size: 12.5px;
-      line-height: 1.72;
+      line-height: 1.75;
       color: var(--text);
       white-space: pre-wrap;
       outline: none;
-      min-height: 260px;
-      max-height: 360px;
+      min-height: 240px;
+      max-height: 340px;
       overflow-y: auto;
       cursor: text;
+      word-break: break-word;
     }
-
     .batch-card-body:focus {
-      background: rgba(255,255,255,0.015);
+      background: rgba(255,255,255,0.012);
     }
 
     .batch-card-footer {
@@ -1001,7 +1014,6 @@
       color: var(--muted);
       font-variant-numeric: tabular-nums;
     }
-
     .batch-char-count.over { color: #e07070; }
 
     /* Export bar */
@@ -1009,19 +1021,17 @@
       display: none;
       align-items: center;
       justify-content: space-between;
-      padding: 13px 60px;
+      padding: 13px 28px;
       border-top: 1px solid var(--border);
       background: #1c1c1c;
       flex-shrink: 0;
     }
-
     .batch-export-bar.visible { display: flex; }
 
     .batch-selected-text {
       font-size: 13px;
       color: var(--muted);
     }
-
     .batch-selected-text strong {
       color: var(--gold);
       font-variant-numeric: tabular-nums;
@@ -1891,6 +1901,7 @@ Bild 5: Pengarna i ditt bolag borde jobba. Länk i bio 👆
   function showBatch() {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById('view-batch').classList.add('active');
+    document.querySelector('.main-content').classList.add('batch-mode');
     document.getElementById('breadcrumb').innerHTML =
       `<span class="crumb current">⚡ Generera flera</span>`;
     if (document.getElementById('batch-grid').children.length === 0) {
@@ -1898,35 +1909,81 @@ Bild 5: Pengarna i ditt bolag borde jobba. Länk i bio 👆
     }
   }
 
+  // Ta bort batch-mode när man navigerar bort
+  const _origShowView = showView;
+  showView = function(viewId) {
+    document.querySelector('.main-content').classList.remove('batch-mode');
+    _origShowView(viewId);
+  };
+
+  const _origShowDoc = showDoc;
+  showDoc = function(docId, el) {
+    document.querySelector('.main-content').classList.remove('batch-mode');
+    _origShowDoc(docId, el);
+  };
+
   function batchGenerate() {
     const type = document.getElementById('batch-type').value;
     const samples = batchSamples[type] || [];
     const meta = typeLabels[type];
     const grid = document.getElementById('batch-grid');
 
-    // Reset selection
     batchSelected.clear();
     updateBatchBar();
-
     grid.innerHTML = '';
+
     const n = Math.min(batchCount, samples.length);
+
     for (let i = 0; i < n; i++) {
       const text = samples[i];
-      const charCount = text.length;
+
+      // Header
+      const header = document.createElement('div');
+      header.className = 'batch-card-header';
+
+      const badge = document.createElement('span');
+      badge.className = 'post-platform ' + meta.platform;
+      badge.textContent = meta.label;
+
+      const typeTag = document.createElement('span');
+      typeTag.className = 'batch-card-type';
+      typeTag.textContent = meta.type;
+
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.className = 'batch-check';
+      cb.addEventListener('change', () => toggleBatchSelect(i, cb));
+
+      header.append(badge, typeTag, cb);
+
+      // Body — textContent to safely handle all characters
+      const body = document.createElement('div');
+      body.className = 'batch-card-body';
+      body.contentEditable = 'true';
+      body.textContent = text;
+      body.addEventListener('input', () => updateCharCount(body, i));
+
+      // Footer
+      const footer = document.createElement('div');
+      footer.className = 'batch-card-footer';
+
+      const charEl = document.createElement('span');
+      charEl.className = 'batch-char-count';
+      charEl.id = 'char-' + i;
+      charEl.textContent = text.length + ' tecken';
+
+      const välj = document.createElement('button');
+      välj.className = 'btn-copy';
+      välj.textContent = '+ Välj';
+      välj.addEventListener('click', () => selectSingle(i, cb));
+
+      footer.append(charEl, välj);
+
+      // Card
       const card = document.createElement('div');
       card.className = 'batch-card';
       card.dataset.idx = i;
-      card.innerHTML = `
-        <div class="batch-card-header">
-          <span class="post-platform ${meta.platform}">${meta.label}</span>
-          <span class="batch-card-type">${meta.type}</span>
-          <input type="checkbox" class="batch-check" onchange="toggleBatchSelect(${i}, this)" />
-        </div>
-        <div class="batch-card-body" contenteditable="true" oninput="updateCharCount(this, ${i})">${text}</div>
-        <div class="batch-card-footer">
-          <span class="batch-char-count" id="char-${i}">${charCount} tecken</span>
-          <button class="btn-copy" onclick="selectSingle(${i})">+ Välj</button>
-        </div>`;
+      card.append(header, body, footer);
       grid.appendChild(card);
     }
   }
@@ -1943,9 +2000,7 @@ Bild 5: Pengarna i ditt bolag borde jobba. Länk i bio 👆
     updateBatchBar();
   }
 
-  function selectSingle(idx) {
-    const card = document.querySelector(`.batch-card[data-idx="${idx}"]`);
-    const cb = card.querySelector('.batch-check');
+  function selectSingle(idx, cb) {
     cb.checked = !cb.checked;
     toggleBatchSelect(idx, cb);
   }
