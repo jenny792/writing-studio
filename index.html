@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing Studio — Cefund</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #191919;
+      --sidebar:    #1e1e1e;
+      --surface:    #252525;
+      --hover:      #2d2d2d;
+      --border:     #2a2a2a;
+      --text:       #e3e1dc;
+      --muted:      #9a9792;
+      --gold:       #c9a96e;
+      --linkedin:   #5b8fde;
+      --panel:      #1e1e1e;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      font-size: 13px;
+    }
+
+    /* ─── SIDEBAR ─────────────────────────────────── */
+    .sidebar {
+      width: 250px;
+      min-width: 250px;
+      background: var(--sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .sidebar-logo {
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: -0.2px;
+      color: var(--text);
+    }
+
+    .sidebar-logo .logo-mark {
+      width: 26px;
+      height: 26px;
+      background: linear-gradient(135deg, var(--gold) 0%, #a07840 100%);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a1610;
+      flex-shrink: 0;
+    }
+
+    .sidebar-search {
+      margin: 12px 10px 4px;
+      position: relative;
+    }
+
+    .sidebar-search input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px 6px 30px;
+      font-family: inherit;
+      font-size: 12px;
+      color: var(--muted);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .sidebar-search input:focus {
+      border-color: #3a3a3a;
+      color: var(--text);
+    }
+
+    .sidebar-search .search-icon {
+      position: absolute;
+      left: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .sidebar-section {
+      padding: 18px 0 6px;
+    }
+
+    .sidebar-section-label {
+      padding: 0 16px 6px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 16px;
+      cursor: pointer;
+      border-radius: 0;
+      transition: background 0.1s;
+      user-select: none;
+      position: relative;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .sidebar-item:hover {
+      background: var(--hover);
+    }
+
+    .sidebar-item.active {
+      background: rgba(201, 169, 110, 0.1);
+      color: var(--gold);
+    }
+
+    .sidebar-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 2px;
+      bottom: 2px;
+      width: 2px;
+      background: var(--gold);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .sidebar-item .item-icon { font-size: 14px; flex-shrink: 0; }
+    .sidebar-item .item-text { flex: 1; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sidebar-item .item-arrow { color: var(--muted); font-size: 10px; transition: transform 0.15s; }
+    .sidebar-item.expanded .item-arrow { transform: rotate(90deg); }
+
+    .sidebar-sub {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.2s ease;
+    }
+
+    .sidebar-sub.open { max-height: 300px; }
+
+    .sidebar-sub-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 16px 4px 36px;
+      cursor: pointer;
+      transition: background 0.1s;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-sub-item:hover { background: var(--hover); color: var(--text); }
+    .sidebar-sub-item.active { color: var(--gold); }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 0;
+    }
+
+    /* ─── MAIN CONTENT ────────────────────────────── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .main-topbar {
+      padding: 14px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .breadcrumb .crumb { cursor: pointer; transition: color 0.1s; }
+    .breadcrumb .crumb:hover { color: var(--text); }
+    .breadcrumb .sep { font-size: 10px; }
+    .breadcrumb .crumb.current { color: var(--text); }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: var(--hover); color: var(--text); border-color: #3a3a3a; }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #1a1610;
+      font-weight: 600;
+    }
+    .btn-gold:hover { background: #d4b580; }
+
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 40px 60px;
+    }
+
+    .doc-icon { font-size: 32px; margin-bottom: 14px; display: block; }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .doc-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .doc-meta .dot { font-size: 4px; }
+
+    .doc-divider {
+      border: none;
+      border-top: 1px dashed var(--border);
+      margin: 0 0 32px;
+    }
+
+    .doc-body {
+      max-width: 640px;
+      line-height: 1.75;
+      font-size: 14px;
+      color: #ccc9c4;
+    }
+
+    .doc-body p { margin-bottom: 18px; }
+    .doc-body h2 { font-size: 17px; font-weight: 600; color: var(--text); margin: 32px 0 12px; }
+    .doc-body h3 { font-size: 14px; font-weight: 600; color: var(--text); margin: 24px 0 8px; }
+
+    .doc-body blockquote {
+      border-left: 2px solid var(--gold);
+      padding-left: 16px;
+      color: var(--muted);
+      font-style: italic;
+      margin: 20px 0;
+    }
+
+    .doc-source-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 32px;
+      padding: 8px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .doc-source-btn:hover {
+      background: var(--hover);
+      color: var(--gold);
+      border-color: rgba(201,169,110,0.3);
+    }
+
+    /* ─── POST VIEWS ──────────────────────────────── */
+    .posts-view, .published-view { display: none; padding: 0; }
+    .posts-view.active, .published-view.active { display: block; }
+
+    .post-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      max-width: 640px;
+    }
+
+    .post-card:hover { background: var(--hover); border-color: #363636; }
+
+    .post-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .post-platform {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .post-platform.linkedin { background: rgba(91,143,222,0.15); color: var(--linkedin); }
+    .post-platform.instagram {
+      background: linear-gradient(135deg, rgba(130,80,200,0.15), rgba(220,70,130,0.15));
+      color: #d870a0;
+    }
+
+    .post-date { font-size: 11px; color: var(--muted); }
+
+    .post-card-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .post-card-preview {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    /* ─── GENERATE PANEL ──────────────────────────── */
+    .generate-panel {
+      width: 340px;
+      min-width: 340px;
+      background: var(--panel);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      transition: width 0.2s, min-width 0.2s, opacity 0.2s;
+    }
+
+    .generate-panel.hidden {
+      width: 0;
+      min-width: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .panel-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--text);
+    }
+
+    .panel-close {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 14px;
+      transition: all 0.1s;
+    }
+
+    .panel-close:hover { background: var(--hover); color: var(--text); }
+
+    .panel-body {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .panel-section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    /* Platform tabs */
+    .platform-tabs {
+      display: flex;
+      gap: 6px;
+    }
+
+    .platform-tab {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: transparent;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .platform-tab:hover { background: var(--hover); }
+
+    .platform-tab.active.linkedin {
+      background: rgba(91,143,222,0.15);
+      color: var(--linkedin);
+      border-color: rgba(91,143,222,0.3);
+    }
+
+    .platform-tab.active.instagram {
+      background: linear-gradient(135deg, rgba(130,80,200,0.15), rgba(220,70,130,0.15));
+      color: #d870a0;
+      border-color: rgba(200,100,160,0.3);
+    }
+
+    /* Source checkboxes */
+    .source-list { display: flex; flex-direction: column; gap: 7px; }
+
+    .source-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      padding: 5px 8px;
+      border-radius: 6px;
+      transition: background 0.1s;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+
+    .source-item:hover { background: var(--hover); color: var(--text); }
+    .source-item.checked { color: var(--text); }
+
+    .source-item input[type="checkbox"] {
+      accent-color: var(--gold);
+      width: 13px;
+      height: 13px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Tone select */
+    .tone-select {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 8px 12px;
+      font-family: inherit;
+      font-size: 12.5px;
+      color: var(--text);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%239a9792' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 28px;
+      transition: border-color 0.15s;
+    }
+
+    .tone-select:focus { border-color: #3a3a3a; }
+    .tone-select option { background: #252525; }
+
+    /* Generate button */
+    .generate-btn {
+      width: 100%;
+      padding: 10px;
+      background: var(--gold);
+      color: #1a1610;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all 0.15s;
+    }
+
+    .generate-btn:hover { background: #d4b580; transform: translateY(-1px); }
+    .generate-btn:active { transform: translateY(0); }
+
+    /* Panel divider */
+    .panel-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 -20px;
+    }
+
+    /* Preview */
+    .preview-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 140px;
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .preview-box.has-content { color: var(--text); }
+
+    .preview-generating {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .preview-generating.show { display: flex; }
+
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Copy button for preview */
+    .preview-actions {
+      display: none;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .preview-actions.show { display: flex; }
+
+    .btn-copy {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-copy:hover { background: var(--hover); color: var(--text); }
+
+    /* ─── SCROLLBARS ──────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+    ::-webkit-scrollbar-thumb:hover { background: #444; }
+
+    /* ─── VIEWS ───────────────────────────────────── */
+    .view { display: none; }
+    .view.active { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    Writing Studio
+  </div>
+
+  <div class="sidebar-search">
+    <span class="search-icon">🔍</span>
+    <input type="text" placeholder="Sök..." />
+  </div>
+
+  <!-- BIBLIOTEK -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Bibliotek</div>
+
+    <!-- Råmaterial -->
+    <div class="sidebar-item expanded" onclick="toggleSection('raw', this)">
+      <span class="item-icon">📗</span>
+      <span class="item-text">Råmaterial</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub open" id="raw">
+      <div class="sidebar-sub-item active" onclick="showDoc('investering', this)">Investeringsfilosofi</div>
+      <div class="sidebar-sub-item" onclick="showDoc('kund', this)">Kundberättelser</div>
+      <div class="sidebar-sub-item" onclick="showDoc('marknad', this)">Marknadskommentarer</div>
+      <div class="sidebar-sub-item" onclick="showDoc('team', this)">Teamets bakgrund</div>
+    </div>
+
+    <!-- Inlägg -->
+    <div class="sidebar-item" onclick="toggleSection('posts-nav', this); showView('posts')">
+      <span class="item-icon">📝</span>
+      <span class="item-text">Inlägg</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub" id="posts-nav">
+      <div class="sidebar-sub-item" onclick="filterPosts('linkedin', this)">LinkedIn</div>
+      <div class="sidebar-sub-item" onclick="filterPosts('instagram', this)">Instagram</div>
+    </div>
+
+    <!-- Hemsidor -->
+    <div class="sidebar-item" onclick="toggleSection('sites', this)">
+      <span class="item-icon">🌐</span>
+      <span class="item-text">Hemsidor</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub" id="sites">
+      <div class="sidebar-sub-item" onclick="showDoc('hemsida', this)">cefund.se</div>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- STUDIO -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Studio</div>
+
+    <div class="sidebar-item" onclick="togglePanel(); showView('doc')">
+      <span class="item-icon">✨</span>
+      <span class="item-text">Generera inlägg</span>
+    </div>
+
+    <div class="sidebar-item" onclick="showView('published')">
+      <span class="item-icon">📋</span>
+      <span class="item-text">Publicerat</span>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN CONTENT ═════════════════════════════════ -->
+<main class="main">
+  <div class="main-topbar">
+    <div class="breadcrumb" id="breadcrumb">
+      <span class="crumb">Böcker</span>
+      <span class="sep">›</span>
+      <span class="crumb current">Investeringsfilosofi</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost" onclick="togglePanel()">✨ Generera</button>
+    </div>
+  </div>
+
+  <div class="main-content">
+
+    <!-- DOC: Investeringsfilosofi -->
+    <div class="view active" id="view-investering">
+      <span class="doc-icon">📗</span>
+      <h1 class="doc-title">Investeringsfilosofi</h1>
+      <div class="doc-meta">
+        <span>Lagt till 12 feb 2026</span>
+        <span class="dot">●</span>
+        <span>3 sidor</span>
+        <span class="dot">●</span>
+        <span>Råmaterial</span>
+      </div>
+      <hr class="doc-divider" />
+      <div class="doc-body">
+        <p>Cefund är grundat på en enkel övertygelse: att oberoende rådgivning ger bättre resultat för privatpersoner och företagare än råd som styrs av provision.</p>
+        <h2>Vår filosofi</h2>
+        <p>Vi tror att långsiktig förmögenhetsbyggnad handlar om tre saker: tid i marknaden snarare än market timing, bred diversifiering, och minimering av kostnader och skatt. Det låter enkelt — men det svåra är att hålla fast vid det när omvärlden skrämmer.</p>
+        <blockquote>
+          "Det bästa investeringsbeslutet du kan fatta är att inte fatta ett beslut i panik."
+        </blockquote>
+        <h3>Oberoende som affärsmodell</h3>
+        <p>Cefund tar betalt av kunderna — inte av produktbolagen. Det innebär att vår rådgivning inte påverkas av provisioner eller kickbacks. Vi rekommenderar det som är bäst för kunden, inte det som är bäst för vår plånbok.</p>
+        <h3>Vad vi hjälper med</h3>
+        <p>Pensionsplanering, kapitalallokering, fastighetsfinansiering, bolagsstruktur för ägare — och framförallt: att hålla en röd tråd genom alla delar av ekonomin så att de samverkar istället för motverkar varandra.</p>
+        <p>Många av våra kunder är företagare som länge skjutit upp frågan om hur pengarna i bolaget egentligen ska jobba. Vi hjälper dem att gå från idé till faktisk struktur — utan att det ska krävas en examen i finansiell ekonomi.</p>
+      </div>
+      <button class="doc-source-btn" onclick="togglePanel()">
+        ✨ Generera inlägg från detta källmaterial
+      </button>
+    </div>
+
+    <!-- DOC: Kundberättelser -->
+    <div class="view" id="view-kund">
+      <span class="doc-icon">👥</span>
+      <h1 class="doc-title">Kundberättelser</h1>
+      <div class="doc-meta">
+        <span>Lagt till 3 feb 2026</span>
+        <span class="dot">●</span>
+        <span>5 sidor</span>
+        <span class="dot">●</span>
+        <span>Råmaterial</span>
+      </div>
+      <hr class="doc-divider" />
+      <div class="doc-body">
+        <p>Berättelser från kunder som gått igenom en strukturerad finansiell genomlysning med Cefund.</p>
+        <h2>Maria, 42, konsultchef</h2>
+        <p>Maria hade sparpengar utspridda på sju olika konton och fonder, utan en tydlig strategi. Efter en genomlysning konsoliderade vi allt till tre depåer med tydliga syften: buffert, pension och aktiv tillväxt.</p>
+        <blockquote>"Jag visste egentligen inte vad jag ägde. Nu vet jag exakt varför varje krona sitter där den sitter."</blockquote>
+        <h2>Erik &amp; Johanna, 38 resp. 36, delägare i konsultbolag</h2>
+        <p>Paret hade länge diskuterat att "göra något med pengarna i bolaget" men aldrig kommit till handling. Vi hjälpte dem sätta upp en kapitalförsäkring i bolaget och en gemensam pensionsplan som koordinerar deras respektive uttag.</p>
+      </div>
+      <button class="doc-source-btn" onclick="togglePanel()">
+        ✨ Generera inlägg från detta källmaterial
+      </button>
+    </div>
+
+    <!-- DOC: Marknadskommentarer -->
+    <div class="view" id="view-marknad">
+      <span class="doc-icon">📈</span>
+      <h1 class="doc-title">Marknadskommentarer</h1>
+      <div class="doc-meta">
+        <span>Lagt till 18 feb 2026</span>
+        <span class="dot">●</span>
+        <span>2 sidor</span>
+        <span class="dot">●</span>
+        <span>Råmaterial</span>
+      </div>
+      <hr class="doc-divider" />
+      <div class="doc-body">
+        <p>Löpande marknadskommentarer som underlag för sociala medier och nyhetsbrev.</p>
+        <h2>Februari 2026</h2>
+        <p>Stockholmsbörsen har inlett 2026 med en tveksam start — OMXS30 är ned 3,2 % sedan årets början, drivet av oro kring inflationsutvecklingen i Europa och ett starkare värde på kronan.</p>
+        <p>Vår syn är oförändrad: kortsiktig volatilitet är priset man betalar för långsiktig avkastning. Kunder med horisont bortom 5 år bör inte förändra sin allokering baserat på rörelserna i januari–februari.</p>
+        <h3>Råvaror och räntor</h3>
+        <p>Riksbanken signalerade vid senaste mötet att en ytterligare räntesänkning är möjlig under Q1. Det gynnar befintliga räntebärande innehav och gör fastighetssegmentet mer attraktivt igen.</p>
+      </div>
+      <button class="doc-source-btn" onclick="togglePanel()">
+        ✨ Generera inlägg från detta källmaterial
+      </button>
+    </div>
+
+    <!-- DOC: Teamets bakgrund -->
+    <div class="view" id="view-team">
+      <span class="doc-icon">🤝</span>
+      <h1 class="doc-title">Teamets bakgrund</h1>
+      <div class="doc-meta">
+        <span>Lagt till 28 jan 2026</span>
+        <span class="dot">●</span>
+        <span>1 sida</span>
+        <span class="dot">●</span>
+        <span>Råmaterial</span>
+      </div>
+      <hr class="doc-divider" />
+      <div class="doc-body">
+        <p>Cefund grundades 2021 av tre rådgivare som lämnade storbanken bakom sig med en gemensam frustration: att provision-drivna modeller fundamentalt snedvrider incitamenten bort från kunden.</p>
+        <h2>Grundarteamet</h2>
+        <p><strong>Anders Lindgren</strong> — 18 år inom private banking, specialiserad på förmögenhetsplanering för familjer och ägare. Certifierad finansiell planerare (CFP).</p>
+        <p><strong>Sara Östberg</strong> — Bakgrund inom skatteplanering och bolagsstruktur. Jurist med fördjupning i kapitalförvaltningsrätt.</p>
+        <p><strong>Jonas Ekström</strong> — Portföljförvaltare med fokus på indexnära strategier och kostnadstransparens. Tidigare fondförvaltare på Swedbank Robur.</p>
+      </div>
+      <button class="doc-source-btn" onclick="togglePanel()">
+        ✨ Generera inlägg från detta källmaterial
+      </button>
+    </div>
+
+    <!-- DOC: Hemsida -->
+    <div class="view" id="view-hemsida">
+      <span class="doc-icon">🌐</span>
+      <h1 class="doc-title">cefund.se</h1>
+      <div class="doc-meta">
+        <span>Synkad 19 feb 2026</span>
+        <span class="dot">●</span>
+        <span>Hemsida</span>
+      </div>
+      <hr class="doc-divider" />
+      <div class="doc-body">
+        <p>Hemsidans innehåll importerat som källmaterial. Används för att generera inlägg som är konsekventa med varumärket och hemsidans budskap.</p>
+        <h2>Tagline</h2>
+        <p><em>"Oberoende rådgivning. Ditt bästa intresse, alltid."</em></p>
+        <h2>Tjänster (från hemsidan)</h2>
+        <p>Helhetssyn på privatekonomin · Pensionsplanering · Bolagsstruktur &amp; utdelning · Fastighetsfinansiering · Generationsskifte</p>
+        <h2>Om oss (kort)</h2>
+        <p>Vi är en oberoende finansiell rådgivare baserad i Stockholm. Vi tar betalt av dig — inte av banker eller produktbolag. Sedan 2021 har vi hjälpt över 200 familjer och företagare att ta kontroll över sin ekonomi.</p>
+      </div>
+      <button class="doc-source-btn" onclick="togglePanel()">
+        ✨ Generera inlägg från detta källmaterial
+      </button>
+    </div>
+
+    <!-- POSTS VIEW -->
+    <div class="view" id="view-posts">
+      <h1 class="doc-title" style="margin-bottom: 6px;">Inlägg</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">4 inlägg · LinkedIn &amp; Instagram</div>
+
+      <div class="post-card">
+        <div class="post-card-header">
+          <span class="post-platform linkedin">💼 LinkedIn</span>
+          <span class="post-date">14 feb 2026</span>
+        </div>
+        <div class="post-card-title">Varför oberoende rådgivning ger bättre resultat</div>
+        <div class="post-card-preview">De flesta råd du får om din ekonomi kommer från någon som tjänar pengar på att du köper en viss produkt. Det är inte ett anklagande — det är systemet. Men det är viktigt att förstå hur det påverkar rådet du får...</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-card-header">
+          <span class="post-platform instagram">📸 Instagram</span>
+          <span class="post-date">11 feb 2026</span>
+        </div>
+        <div class="post-card-title">3 saker du borde göra med ditt bolags överskott</div>
+        <div class="post-card-preview">Har du pengar som "väntar" i ditt bolag utan att göra nytta? Du är inte ensam. Här är de tre vanligaste misstagen — och vad du kan göra istället 👇</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-card-header">
+          <span class="post-platform linkedin">💼 LinkedIn</span>
+          <span class="post-date">5 feb 2026</span>
+        </div>
+        <div class="post-card-title">Riksbankens signaler — vad betyder det för dig?</div>
+        <div class="post-card-preview">Riksbanken signalerade vid senaste mötet att ytterligare räntesänkningar kan komma under Q1. Det kan låta som en nyhet för makroekonomer — men det har konkreta konsekvenser för dig som privatperson...</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-card-header">
+          <span class="post-platform instagram">📸 Instagram</span>
+          <span class="post-date">28 jan 2026</span>
+        </div>
+        <div class="post-card-title">Pensionssparande: det du inte visste att du inte visste</div>
+        <div class="post-card-preview">Visste du att valet av fonder i ditt tjänstepension kan skilja hundratusentals kronor vid pensionering — med exakt samma insättningar? Det handlar om avgifter och allokering...</div>
+      </div>
+    </div>
+
+    <!-- PUBLISHED VIEW -->
+    <div class="view" id="view-published">
+      <h1 class="doc-title" style="margin-bottom: 6px;">Publicerat</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">Historik över publicerade inlägg</div>
+
+      <div class="post-card">
+        <div class="post-card-header">
+          <span class="post-platform linkedin">💼 LinkedIn</span>
+          <span class="post-date">Publicerat 14 feb 2026 · 847 visningar</span>
+        </div>
+        <div class="post-card-title">Varför oberoende rådgivning ger bättre resultat</div>
+        <div class="post-card-preview">De flesta råd du får om din ekonomi kommer från någon som tjänar pengar på att du köper en viss produkt...</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-card-header">
+          <span class="post-platform instagram">📸 Instagram</span>
+          <span class="post-date">Publicerat 11 feb 2026 · 1 204 visningar</span>
+        </div>
+        <div class="post-card-title">3 saker du borde göra med ditt bolags överskott</div>
+        <div class="post-card-preview">Har du pengar som "väntar" i ditt bolag utan att göra nytta?...</div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ═══ GENERATE PANEL ══════════════════════════════ -->
+<aside class="generate-panel hidden" id="generate-panel">
+  <div class="panel-header">
+    <div class="panel-title">✨ Generera inlägg</div>
+    <div class="panel-close" onclick="togglePanel()">✕</div>
+  </div>
+
+  <div class="panel-body">
+
+    <!-- Platform -->
+    <div>
+      <div class="panel-section-label">Plattform</div>
+      <div class="platform-tabs">
+        <button class="platform-tab active linkedin" onclick="setPlatform('linkedin', this)">💼 LinkedIn</button>
+        <button class="platform-tab instagram" onclick="setPlatform('instagram', this)">📸 Instagram</button>
+      </div>
+    </div>
+
+    <!-- Sources -->
+    <div>
+      <div class="panel-section-label">Källor</div>
+      <div class="source-list">
+        <label class="source-item checked">
+          <input type="checkbox" checked /> Investeringsfilosofi
+        </label>
+        <label class="source-item checked">
+          <input type="checkbox" checked /> Kundberättelser
+        </label>
+        <label class="source-item">
+          <input type="checkbox" /> Marknadskommentarer
+        </label>
+        <label class="source-item">
+          <input type="checkbox" /> Hemsida (cefund.se)
+        </label>
+        <label class="source-item">
+          <input type="checkbox" /> Teamets bakgrund
+        </label>
+      </div>
+    </div>
+
+    <!-- Tone -->
+    <div>
+      <div class="panel-section-label">Tonläge</div>
+      <select class="tone-select">
+        <option>Pedagogisk</option>
+        <option>Personlig &amp; varm</option>
+        <option>Professionell</option>
+        <option>Provocerande</option>
+        <option>Berättande</option>
+        <option>Data-driven</option>
+      </select>
+    </div>
+
+    <!-- Generate button -->
+    <button class="generate-btn" onclick="generate()">
+      ✨ Generera inlägg
+    </button>
+
+    <div class="panel-divider"></div>
+
+    <!-- Preview -->
+    <div style="display:flex; flex-direction:column; gap:10px; flex:1;">
+      <div class="panel-section-label">Förhandsvisning</div>
+      <div class="preview-box" id="preview-box">
+        Välj källor och tonläge, sedan klickar du Generera inlägg...
+      </div>
+      <div class="preview-generating" id="preview-spinner">
+        <div class="spinner"></div>
+        <span>Genererar inlägg...</span>
+      </div>
+      <div class="preview-actions" id="preview-actions">
+        <button class="btn-copy" onclick="copyPreview()">Kopiera</button>
+        <button class="btn btn-ghost" style="font-size:11px; padding:5px 10px;">Redigera</button>
+      </div>
+    </div>
+
+  </div>
+</aside>
+
+<!-- ═══ JAVASCRIPT ═══════════════════════════════════ -->
+<script>
+  let panelOpen = false;
+  let activePlatform = 'linkedin';
+
+  const samplePosts = {
+    linkedin: `Många av mina kunder kommer med en känsla av att deras ekonomi är utspridd och ostrukturerad — pengar på sju ställen, fonder de inte minns att de valt, och en pension de inte förstår.
+
+Det är inte deras fel. Det är systemet.
+
+Finansiella produkter är designade för att vara svåra att jämföra. Det är lättare att sälja ett komplicerat paket än att förklara en enkel strategi.
+
+Hos Cefund börjar vi alltid med att kartlägga allt: var varje krona finns, vad den kostar, och vad den egentligen är till för.
+
+Sedan bygger vi ihop ett system där delarna samverkar.
+
+Tre frågor du kan ställa dig nu:
+→ Vet du exakt vad du betalar i avgifter för din pension?
+→ Har du en buffert som är åtskild från din investering?
+→ Jobbar ditt bolags överskott aktivt — eller "väntar" det?
+
+Om svaret är nej på någon av dessa, hör av dig.
+
+#finansiellrådgivning #cefund #oberoende #pension #förmögenhetsplanering`,
+
+    instagram: `Pengarna i ditt bolag borde jobba.
+
+Inte "vänta". 💡
+
+Här är 3 saker vi hjälper företagare att göra med överskottet:
+
+1️⃣ Kapitalförsäkring i bolaget
+→ Lägre skatt på avkastning, enklare administration
+
+2️⃣ Pensionsavsättning
+→ Avdragsgill för bolaget, skatteuppskjuten för dig
+
+3️⃣ Aktiv allokering
+→ Istället för 0,01% på företagskontot
+
+Vill du veta hur det funkar för just ditt bolag?
+Länk i bio 👆
+
+#cefund #företagarekonomi #pension #kapitalförvaltning #oberoenderådgivning`
+  };
+
+  function togglePanel() {
+    const panel = document.getElementById('generate-panel');
+    panelOpen = !panelOpen;
+    panel.classList.toggle('hidden', !panelOpen);
+  }
+
+  function showDoc(docId, el) {
+    // Deactivate all views
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    // Activate target view
+    const target = document.getElementById('view-' + docId);
+    if (target) target.classList.add('active');
+
+    // Update sidebar active state
+    document.querySelectorAll('.sidebar-sub-item').forEach(i => i.classList.remove('active'));
+    if (el) el.classList.add('active');
+
+    // Update breadcrumb
+    const titles = {
+      investering: 'Investeringsfilosofi',
+      kund: 'Kundberättelser',
+      marknad: 'Marknadskommentarer',
+      team: 'Teamets bakgrund',
+      hemsida: 'cefund.se'
+    };
+    const parents = {
+      investering: 'Böcker', kund: 'Böcker', marknad: 'Böcker', team: 'Böcker',
+      hemsida: 'Hemsidor'
+    };
+    document.getElementById('breadcrumb').innerHTML = `
+      <span class="crumb">${parents[docId] || 'Bibliotek'}</span>
+      <span class="sep">›</span>
+      <span class="crumb current">${titles[docId] || docId}</span>
+    `;
+  }
+
+  function showView(viewId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    const target = document.getElementById('view-' + viewId);
+    if (target) target.classList.add('active');
+
+    const labels = {
+      posts: 'Inlägg',
+      published: 'Publicerat'
+    };
+
+    if (labels[viewId]) {
+      document.getElementById('breadcrumb').innerHTML = `
+        <span class="crumb current">${labels[viewId]}</span>
+      `;
+    }
+  }
+
+  function toggleSection(sectionId, el) {
+    const sub = document.getElementById(sectionId);
+    if (!sub) return;
+    const isOpen = sub.classList.contains('open');
+    sub.classList.toggle('open', !isOpen);
+    el.classList.toggle('expanded', !isOpen);
+  }
+
+  function filterPosts(platform, el) {
+    showView('posts');
+    document.querySelectorAll('.sidebar-sub-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function setPlatform(platform, el) {
+    activePlatform = platform;
+    document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function generate() {
+    const box = document.getElementById('preview-box');
+    const spinner = document.getElementById('preview-spinner');
+    const actions = document.getElementById('preview-actions');
+
+    box.textContent = '';
+    box.classList.remove('has-content');
+    spinner.classList.add('show');
+    actions.classList.remove('show');
+
+    setTimeout(() => {
+      spinner.classList.remove('show');
+      const text = samplePosts[activePlatform];
+      box.textContent = text;
+      box.classList.add('has-content');
+      actions.classList.add('show');
+    }, 1600);
+  }
+
+  function copyPreview() {
+    const text = document.getElementById('preview-box').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      btn.textContent = 'Kopierat ✓';
+      setTimeout(() => { btn.textContent = 'Kopiera'; }, 2000);
+    });
+  }
+
+  // Init: expand raw section
+  document.getElementById('raw').classList.add('open');
+</script>
+</body>
+</html>
