@@ -847,6 +847,188 @@
       display: flex; align-items: center; gap: 8px;
     }
 
+    /* ─── BATCH STUDIO ────────────────────────────── */
+    .batch-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .batch-settings {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .batch-type-select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 7px 28px 7px 12px;
+      font-family: inherit;
+      font-size: 12.5px;
+      color: var(--text);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%239a9792' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+
+    .batch-type-select option { background: #252525; }
+
+    .batch-sep {
+      width: 1px; height: 20px;
+      background: var(--border);
+    }
+
+    .count-pills {
+      display: flex;
+      gap: 3px;
+    }
+
+    .count-pill {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+
+    .count-pill:hover { color: var(--text); border-color: #3a3a3a; }
+    .count-pill.active { background: var(--surface); color: var(--text); border-color: #3a3a3a; }
+
+    .batch-generate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 18px;
+      background: var(--gold);
+      color: #1a1610;
+      border: none;
+      border-radius: 7px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .batch-generate-btn:hover { background: #d4b580; }
+
+    /* Grid */
+    .batch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 16px;
+    }
+
+    .batch-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .batch-card.selected {
+      border-color: rgba(201,169,110,0.55);
+      background: rgba(201,169,110,0.03);
+    }
+
+    .batch-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .batch-card-type {
+      font-size: 11px;
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .batch-check {
+      width: 16px; height: 16px;
+      cursor: pointer;
+      accent-color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .batch-card-body {
+      flex: 1;
+      padding: 14px 16px;
+      font-size: 12.5px;
+      line-height: 1.72;
+      color: var(--text);
+      white-space: pre-wrap;
+      outline: none;
+      min-height: 260px;
+      max-height: 360px;
+      overflow-y: auto;
+      cursor: text;
+    }
+
+    .batch-card-body:focus {
+      background: rgba(255,255,255,0.015);
+    }
+
+    .batch-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 14px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .batch-char-count {
+      font-size: 10.5px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .batch-char-count.over { color: #e07070; }
+
+    /* Export bar */
+    .batch-export-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 60px;
+      border-top: 1px solid var(--border);
+      background: #1c1c1c;
+      flex-shrink: 0;
+    }
+
+    .batch-export-bar.visible { display: flex; }
+
+    .batch-selected-text {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .batch-selected-text strong {
+      color: var(--gold);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .batch-export-actions { display: flex; gap: 8px; }
+
     /* ─── SCROLLBARS ──────────────────────────────── */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -948,6 +1130,11 @@
     <div class="sidebar-item" onclick="togglePanel(); showView('doc')">
       <span class="item-icon">✨</span>
       <span class="item-text">Generera inlägg</span>
+    </div>
+
+    <div class="sidebar-item" onclick="showBatch()">
+      <span class="item-icon">⚡</span>
+      <span class="item-text">Generera flera</span>
     </div>
 
     <div class="sidebar-item" onclick="showView('published')">
@@ -1142,6 +1329,43 @@
       </div>
     </div>
 
+    <!-- BATCH VIEW -->
+    <div class="view" id="view-batch">
+
+      <div class="batch-toolbar">
+        <div class="batch-settings">
+          <select class="batch-type-select" id="batch-type">
+            <option value="linkedin-tankeled">💼 LinkedIn — Tankeledare</option>
+            <option value="linkedin-tips">💼 LinkedIn — Tipslista</option>
+            <option value="ig-quote">📸 Instagram — Quote</option>
+            <option value="ig-karusell">📸 Instagram — Karusell</option>
+          </select>
+
+          <div class="batch-sep"></div>
+
+          <div class="count-pills">
+            <div class="count-pill" onclick="setCount(2,this)">2</div>
+            <div class="count-pill active" onclick="setCount(3,this)">3</div>
+            <div class="count-pill" onclick="setCount(4,this)">4</div>
+          </div>
+
+          <div class="batch-sep"></div>
+
+          <select class="batch-type-select">
+            <option>Pedagogisk</option>
+            <option>Personlig &amp; varm</option>
+            <option>Professionell</option>
+            <option>Provocerande</option>
+          </select>
+
+          <button class="batch-generate-btn" onclick="batchGenerate()">✨ Generera</button>
+        </div>
+      </div>
+
+      <div class="batch-grid" id="batch-grid"></div>
+
+    </div>
+
     <!-- POST DETAIL VIEW -->
     <div class="view" id="view-post-detail">
       <div class="post-detail-meta">
@@ -1183,6 +1407,17 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- Batch export bar (fast under scroll-arean) -->
+  <div class="batch-export-bar" id="batch-export-bar">
+    <div class="batch-selected-text">
+      <strong id="batch-count">0</strong> inlägg valda för export
+    </div>
+    <div class="batch-export-actions">
+      <button class="btn btn-ghost" onclick="clearBatchSelection()">Rensa val</button>
+      <button class="csv-download-btn ready" onclick="exportBatchCSV()">↓ Exportera till CSV</button>
+    </div>
   </div>
 </main>
 
@@ -1503,6 +1738,261 @@ Länk i bio 👆
       btn.textContent = 'Kopierat ✓';
       setTimeout(() => { btn.textContent = 'Kopiera'; }, 2000);
     });
+  }
+
+  // ─── BATCH STUDIO ─────────────────────────────────────
+  const batchSamples = {
+    'linkedin-tankeled': [
+      `Många av mina kunder kommer med en känsla av att deras ekonomi är utspridd och ostrukturerad — pengar på sju ställen, fonder de inte minns att de valt, och en pension de inte förstår.
+
+Det är inte deras fel. Det är systemet.
+
+Finansiella produkter är designade för att vara svåra att jämföra. Det är lättare att sälja ett komplicerat paket än att förklara en enkel strategi.
+
+Hos Cefund börjar vi alltid med att kartlägga allt: var varje krona finns, vad den kostar, och vad den egentligen är till för.
+
+Tre frågor du kan ställa dig nu:
+→ Vet du exakt vad du betalar i avgifter för din pension?
+→ Har du en buffert som är åtskild från din investering?
+→ Jobbar ditt bolags överskott aktivt — eller "väntar" det?
+
+#finansiellrådgivning #cefund #oberoende #pension`,
+
+      `De flesta pratar om att "tajma marknaden". Köpa lågt, sälja högt.
+
+Det låter enkelt. Det funkar inte.
+
+Studier visar att privatinvesterare konsekvent underpresterar index — inte för att de väljer fel aktier, utan för att de säljer när det faller och köper när det stiger. Precis tvärtom mot vad som krävs.
+
+Tid i marknaden slår market timing. Alltid.
+
+Det bästa du kan göra: välj en allokering du kan leva med även när det faller 30 %. Sedan — håll fast vid den. Det är allt.
+
+#investering #langsiktigtspara #cefund #fondspara`,
+
+      `Oberoende rådgivning är inte ett buzzword. Det är en affärsmodell.
+
+Vi tar betalt av dig. Inte av banker. Inte av fondbolag. Inte av försäkringsbolag.
+
+Det innebär att det aldrig finns ett inbyggt skäl för oss att rekommendera produkt A framför produkt B — förutom att A passar dig bättre.
+
+Det är en liten förändring i hur vi tjänar pengar. Det är en enorm förändring i vilka råd du får.
+
+Sedan 2021 har vi hjälpt 200+ familjer och företagare att bygga ekonomisk struktur utan intressekonflikter.
+
+#cefund #oberoende #finansiellrådgivning #transparent`,
+
+      `Riksbanken sänker räntan. Vad innebär det för dig?
+
+1. Rörligt bolån → lägre månadskostnad direkt
+2. Räntesparande → avkastningen sjunker
+3. Aktier → historiskt positivt på kort sikt
+4. Fastigheter → efterfrågan kan öka igen
+
+Det viktiga är inte att förutspå exakt vad som händer — utan att förstå hur din portfölj är exponerad mot ränteförändringar.
+
+Vet du det?
+
+#riksbanken #ränta #privatekonomi #cefund`
+    ],
+    'linkedin-tips': [
+      `5 misstag som kostar dig pengar på pensionen — och hur du undviker dem.
+
+1️⃣ Aldrig sett över fondvalet
+→ Standardalternativet är sällan det bästa för dig
+
+2️⃣ Betalar för höga avgifter
+→ 1% i avgift = hundratusentals kronor borta vid 65
+
+3️⃣ Blandar ihop buffert och investering
+→ Det som ska vara trygghet ska inte vara i aktier
+
+4️⃣ Tar ut för lite i lön
+→ Pensionsgrundande inkomst påverkas direkt
+
+5️⃣ Skjuter upp beslutet
+→ Tid är din mest värdefulla tillgång i sparande
+
+Vilket av dessa känner du igen dig i?
+
+#pension #tjänstepension #cefund #spara`,
+
+      `Tre saker du kan göra med överskottet i bolaget — rangordnade efter skatteeffektivitet.
+
+1️⃣ Kapitalförsäkring i bolaget
+Schablonbeskattad. Enkel administration. Bra för långsiktigt kapital.
+
+2️⃣ Pensionsavsättning (§28A)
+Avdragsgill kostnad för bolaget. Skatteuppskjuten för dig personligen.
+
+3️⃣ Utdelning via 3:12
+Effektivt om du kvalificerar för lågbeskattad utdelning (gränsbeloppet).
+
+Vilket alternativ som passar bäst beror på din personliga situation. Men att låta pengarna "vänta" på kontot är aldrig rätt svar.
+
+#bolagsstruktur #cefund #skatt #företagande`
+    ],
+    'ig-quote': [
+      `"Det bästa investeringsbeslutet du kan fatta är att inte fatta ett beslut i panik."
+
+— Cefund`,
+
+      `"Tid i marknaden slår alltid timing av marknaden."
+
+— Cefund`,
+
+      `"Oberoende rådgivning är inte ett löfte. Det är en affärsmodell."
+
+— Cefund`
+    ],
+    'ig-karusell': [
+      `Bild 1: Pensionen — allt du inte visste att du inte visste 🧵
+
+Bild 2: Visste du att avgiften på din fond kan kosta dig 400 000 kr vid pensionen?
+
+Bild 3: Standardvalet är sällan det bästa valet. Majoriteten byter aldrig fond.
+
+Bild 4: Lösningen: se över fondvalet en gång per år. Det tar 10 minuter.
+
+Bild 5: Vill du veta hur din pension ser ut? Länk i bio 👆
+
+#pension #spara #privatekonomi #cefund`,
+
+      `Bild 1: 3 vanliga misstag med bolagspengar 💡
+
+Bild 2: Misstag 1 — Låta pengarna "vänta" på kontot till 0,01% ränta
+
+Bild 3: Misstag 2 — Aldrig sätta upp en pensionsavsättning
+
+Bild 4: Misstag 3 — Inte använda kapitalförsäkringens skattefördelar
+
+Bild 5: Pengarna i ditt bolag borde jobba. Länk i bio 👆
+
+#företagande #bolag #cefund #kapitalförvaltning`
+    ]
+  };
+
+  const typeLabels = {
+    'linkedin-tankeled': { platform: 'linkedin', label: '💼 LinkedIn', type: 'Tankeledare' },
+    'linkedin-tips':     { platform: 'linkedin', label: '💼 LinkedIn', type: 'Tipslista' },
+    'ig-quote':          { platform: 'instagram', label: '📸 Instagram', type: 'Quote' },
+    'ig-karusell':       { platform: 'instagram', label: '📸 Instagram', type: 'Karusell' }
+  };
+
+  let batchCount = 3;
+  let batchSelected = new Set();
+
+  function setCount(n, el) {
+    batchCount = n;
+    document.querySelectorAll('.count-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function showBatch() {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-batch').classList.add('active');
+    document.getElementById('breadcrumb').innerHTML =
+      `<span class="crumb current">⚡ Generera flera</span>`;
+    if (document.getElementById('batch-grid').children.length === 0) {
+      batchGenerate();
+    }
+  }
+
+  function batchGenerate() {
+    const type = document.getElementById('batch-type').value;
+    const samples = batchSamples[type] || [];
+    const meta = typeLabels[type];
+    const grid = document.getElementById('batch-grid');
+
+    // Reset selection
+    batchSelected.clear();
+    updateBatchBar();
+
+    grid.innerHTML = '';
+    const n = Math.min(batchCount, samples.length);
+    for (let i = 0; i < n; i++) {
+      const text = samples[i];
+      const charCount = text.length;
+      const card = document.createElement('div');
+      card.className = 'batch-card';
+      card.dataset.idx = i;
+      card.innerHTML = `
+        <div class="batch-card-header">
+          <span class="post-platform ${meta.platform}">${meta.label}</span>
+          <span class="batch-card-type">${meta.type}</span>
+          <input type="checkbox" class="batch-check" onchange="toggleBatchSelect(${i}, this)" />
+        </div>
+        <div class="batch-card-body" contenteditable="true" oninput="updateCharCount(this, ${i})">${text}</div>
+        <div class="batch-card-footer">
+          <span class="batch-char-count" id="char-${i}">${charCount} tecken</span>
+          <button class="btn-copy" onclick="selectSingle(${i})">+ Välj</button>
+        </div>`;
+      grid.appendChild(card);
+    }
+  }
+
+  function toggleBatchSelect(idx, checkbox) {
+    const card = document.querySelector(`.batch-card[data-idx="${idx}"]`);
+    if (checkbox.checked) {
+      batchSelected.add(idx);
+      card.classList.add('selected');
+    } else {
+      batchSelected.delete(idx);
+      card.classList.remove('selected');
+    }
+    updateBatchBar();
+  }
+
+  function selectSingle(idx) {
+    const card = document.querySelector(`.batch-card[data-idx="${idx}"]`);
+    const cb = card.querySelector('.batch-check');
+    cb.checked = !cb.checked;
+    toggleBatchSelect(idx, cb);
+  }
+
+  function updateCharCount(el, idx) {
+    const count = el.textContent.length;
+    const countEl = document.getElementById('char-' + idx);
+    if (countEl) {
+      countEl.textContent = count + ' tecken';
+      countEl.classList.toggle('over', count > 3000);
+    }
+  }
+
+  function updateBatchBar() {
+    const bar = document.getElementById('batch-export-bar');
+    const countEl = document.getElementById('batch-count');
+    countEl.textContent = batchSelected.size;
+    bar.classList.toggle('visible', batchSelected.size > 0);
+  }
+
+  function clearBatchSelection() {
+    batchSelected.clear();
+    document.querySelectorAll('.batch-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.batch-check').forEach(cb => cb.checked = false);
+    updateBatchBar();
+  }
+
+  function exportBatchCSV() {
+    const type = document.getElementById('batch-type').value;
+    const headers = ['Hook', 'Text', 'Hashtags', 'Typ', 'Plattform'];
+    const rows = [];
+    batchSelected.forEach(idx => {
+      const body = document.querySelector(`.batch-card[data-idx="${idx}"] .batch-card-body`);
+      if (!body) return;
+      const { hook, body: bodyText, hashtags } = parsePost(body.textContent.trim());
+      const meta = typeLabels[type];
+      rows.push([hook, bodyText, hashtags, meta.type, meta.label].map(csvCell).join(','));
+    });
+    if (!rows.length) return;
+    const csv = '\ufeff' + [headers.join(','), ...rows].join('\r\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `canva-${type}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   // ─── MODAL ────────────────────────────────────────────
