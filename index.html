@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cefund Studio</title>
+  <title>Writing Studio — Cefund</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -1131,6 +1131,245 @@
     .batch-selected-text strong { color: var(--gold); font-variant-numeric: tabular-nums; }
     .batch-export-actions { display: flex; gap: 8px; }
 
+    /* ─── ÖVERSIKT ────────────────────────────────────── */
+    .dash-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .dash-stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .dash-stat-value {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+    .dash-stat-label { font-size: 11.5px; color: var(--muted); }
+    .dash-stat-change { font-size: 11px; color: #6dbf7e; margin-top: 5px; }
+    .dash-stat-change.neutral { color: var(--muted); }
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 16px;
+    }
+    .dash-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .dash-card:last-child { margin-bottom: 0; }
+    .dash-card-title {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12.5px;
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--muted);
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+    .activity-dot.gold { background: var(--gold); }
+    .activity-dot.green { background: #6dbf7e; }
+    .activity-dot.blue { background: var(--linkedin); }
+    .activity-text { flex: 1; color: var(--text); line-height: 1.4; }
+    .activity-time { font-size: 11px; color: var(--muted); white-space: nowrap; }
+    .quick-action {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .quick-action:last-child { border-bottom: none; }
+    .quick-action:hover { background: var(--hover); }
+    .quick-action-icon { font-size: 18px; flex-shrink: 0; }
+    .quick-action-label { font-size: 12.5px; font-weight: 500; color: var(--text); }
+    .quick-action-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+    /* ─── PIPELINE ─────────────────────────────────────── */
+    .pipeline-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .pipeline-col {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .pipeline-col-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pipeline-col-title {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pipeline-col-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .pipeline-col-count {
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--hover);
+      border-radius: 4px;
+      padding: 1px 7px;
+    }
+    .pipeline-cards { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+    .pipe-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 11px 13px;
+      transition: all 0.12s;
+    }
+    .pipe-card:hover { border-color: #3a3a3a; }
+    .pipe-card-title {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 7px;
+      line-height: 1.35;
+    }
+    .pipe-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .pipe-card-date { font-size: 11px; color: var(--muted); }
+    .pipe-move-btn {
+      display: inline-flex;
+      align-items: center;
+      font-size: 10.5px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px;
+      cursor: pointer;
+      margin-left: auto;
+      transition: all 0.1s;
+      font-family: inherit;
+    }
+    .pipe-move-btn:hover { color: var(--gold); border-color: rgba(201,169,110,0.4); }
+
+    /* ─── KALENDER ─────────────────────────────────────── */
+    .cal-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .cal-nav { display: flex; align-items: center; gap: 12px; }
+    .cal-nav-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--muted); font-size: 14px; transition: all 0.1s;
+    }
+    .cal-nav-btn:hover { background: var(--hover); color: var(--text); }
+    .cal-month { font-size: 16px; font-weight: 600; color: var(--text); }
+    .cal-legend { display: flex; align-items: center; gap: 14px; }
+    .cal-legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
+    .cal-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1px;
+    }
+    .cal-weekday {
+      padding: 8px 0;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .cal-day {
+      min-height: 90px;
+      padding: 7px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .cal-day:nth-child(7n) { border-right: none; }
+    .cal-day.last-row { border-bottom: none; }
+    .cal-day.other-month .cal-day-num { opacity: 0.35; }
+    .cal-day.today .cal-day-num {
+      background: var(--gold);
+      color: #1a1610;
+      border-radius: 50%;
+    }
+    .cal-day-num {
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 500;
+      color: var(--muted); flex-shrink: 0; margin-bottom: 1px;
+    }
+    .cal-event {
+      font-size: 10px;
+      padding: 2px 5px;
+      border-radius: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+    .cal-event:hover { opacity: 0.8; }
+    .cal-event.linkedin { background: rgba(91,143,222,0.2); color: var(--linkedin); }
+    .cal-event.instagram { background: rgba(216,112,160,0.15); color: #d870a0; }
+    .cal-event.event { background: rgba(201,169,110,0.15); color: var(--gold); }
+
     /* ─── SCROLLBARS ──────────────────────────────── */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -1686,124 +1925,111 @@
     <input type="text" placeholder="Sök..." oninput="searchSidebar(this.value)" />
   </div>
 
-  <!-- ÖVERSIKT -->
+  <!-- KÄLLBIBLIOTEK -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">📊 Översikt</div>
-    <div class="sidebar-item" onclick="showNewView('dashboard')">
-      <span class="item-icon">🏠</span>
-      <span class="item-text">Dashboard</span>
-    </div>
-  </div>
+    <div class="sidebar-section-label">Källbibliotek</div>
 
-  <div class="sidebar-divider"></div>
-
-  <!-- KONTAKTER -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">👥 Kontakter</div>
-    <div class="sidebar-item" onclick="showNewView('contacts')">
-      <span class="item-icon">📇</span>
-      <span class="item-text">Alla kontakter</span>
-    </div>
-    <div class="sidebar-item" onclick="showNewView('pipeline')">
-      <span class="item-icon">📊</span>
-      <span class="item-text">Pipeline</span>
-    </div>
-  </div>
-
-  <div class="sidebar-divider"></div>
-
-  <!-- MÖTEN -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">📅 Möten</div>
-    <div class="sidebar-item" onclick="showNewView('meetings')">
-      <span class="item-icon">📅</span>
-      <span class="item-text">Kommande möten</span>
-    </div>
-    <div class="sidebar-item" onclick="showNewView('meeting-notes')">
-      <span class="item-icon">📝</span>
-      <span class="item-text">Mötesanteckningar</span>
-    </div>
-  </div>
-
-  <div class="sidebar-divider"></div>
-
-  <!-- ERBJUDANDEN -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">📄 Erbjudanden</div>
-    <div class="sidebar-item" onclick="showNewView('offers')">
-      <span class="item-icon">💼</span>
-      <span class="item-text">Aktiva offerter</span>
-    </div>
-    <div class="sidebar-item" onclick="showNewView('offer-templates')">
-      <span class="item-icon">📋</span>
-      <span class="item-text">Mallar</span>
-    </div>
-  </div>
-
-  <div class="sidebar-divider"></div>
-
-  <!-- CONTENT (befintligt) -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">✍️ Content</div>
-
-    <!-- Källbibliotek -->
-    <div class="sidebar-item" onclick="toggleSection('kallbibliotek-nav', this)">
-      <span class="item-icon">📚</span>
-      <span class="item-text">Källbibliotek</span>
+    <div class="sidebar-item" onclick="toggleSection('transkript', this)">
+      <span class="item-icon">🎙️</span>
+      <span class="item-text">Transkript</span>
+      <span class="item-add" onclick="event.stopPropagation(); openModal('transkript')">+</span>
       <span class="item-arrow">›</span>
     </div>
-    <div class="sidebar-sub" id="kallbibliotek-nav">
+    <div class="sidebar-sub" id="transkript">
       <div class="sidebar-sub-item active" onclick="showDoc('investering', this)">Investerardag feb 2026</div>
-      <div class="sidebar-sub-item" onclick="showDoc('kund', this)">Kundpresentation Q1 2026</div>
-      <div class="sidebar-sub-item" onclick="showDoc('marknad', this)">Marknadskommentarer feb</div>
-      <div class="sidebar-sub-item" onclick="showDoc('team', this)">Teamets bakgrund</div>
-      <div class="sidebar-sub-item" onclick="showDoc('hemsida', this)">cefund.se</div>
     </div>
 
-    <!-- Inlägg -->
+    <div class="sidebar-item" onclick="toggleSection('presentationer', this)">
+      <span class="item-icon">📊</span>
+      <span class="item-text">Presentationer</span>
+      <span class="item-add" onclick="event.stopPropagation(); openModal('presentation')">+</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub" id="presentationer">
+      <div class="sidebar-sub-item" onclick="showDoc('kund', this)">Kundpresentation Q1 2026</div>
+    </div>
+
+    <div class="sidebar-item expanded" onclick="toggleSection('dokument', this)">
+      <span class="item-icon">📄</span>
+      <span class="item-text">Dokument</span>
+      <span class="item-add" onclick="event.stopPropagation(); openModal('dokument')">+</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub open" id="dokument">
+      <div class="sidebar-sub-item" onclick="showDoc('marknad', this)">Marknadskommentarer feb</div>
+      <div class="sidebar-sub-item" onclick="showDoc('team', this)">Teamets bakgrund</div>
+    </div>
+
+    <div class="sidebar-item" onclick="toggleSection('weblankar', this)">
+      <span class="item-icon">🌐</span>
+      <span class="item-text">Webblänkar</span>
+      <span class="item-add" onclick="event.stopPropagation(); openModal('webblank')">+</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub" id="weblankar">
+      <div class="sidebar-sub-item" onclick="showDoc('hemsida', this)">cefund.se</div>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- INLÄGG -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Inlägg</div>
+
     <div class="sidebar-item" onclick="toggleSection('posts-nav', this); showView('posts')">
       <span class="item-icon">📝</span>
-      <span class="item-text">Inlägg</span>
+      <span class="item-text">Alla inlägg</span>
       <span class="item-arrow">›</span>
     </div>
     <div class="sidebar-sub" id="posts-nav">
       <div class="sidebar-sub-item" onclick="filterPosts('linkedin', this)">LinkedIn</div>
       <div class="sidebar-sub-item" onclick="filterPosts('instagram', this)">Instagram</div>
     </div>
+  </div>
 
-    <!-- Studio -->
-    <div class="sidebar-item" onclick="toggleSection('studio-nav', this)">
+  <div class="sidebar-divider"></div>
+
+  <!-- STUDIO -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Studio</div>
+
+    <div class="sidebar-item" onclick="togglePanel(); showView('doc')">
       <span class="item-icon">✨</span>
-      <span class="item-text">Studio</span>
-      <span class="item-arrow">›</span>
+      <span class="item-text">Generera inlägg</span>
     </div>
-    <div class="sidebar-sub" id="studio-nav">
-      <div class="sidebar-sub-item" onclick="togglePanel(); showView('doc')">Generera inlägg</div>
-      <div class="sidebar-sub-item" onclick="showBatch()">Generera flera</div>
-      <div class="sidebar-sub-item" onclick="showView('published')">Publicerat</div>
+
+    <div class="sidebar-item" onclick="showBatch()">
+      <span class="item-icon">⚡</span>
+      <span class="item-text">Generera flera</span>
+    </div>
+
+    <div class="sidebar-item" onclick="showView('published')">
+      <span class="item-icon">📋</span>
+      <span class="item-text">Publicerat</span>
+    </div>
+
+    <div class="sidebar-item" onclick="showOversikt()">
+      <span class="item-icon">🏠</span>
+      <span class="item-text">Översikt</span>
+    </div>
+
+    <div class="sidebar-item" onclick="showPipeline()">
+      <span class="item-icon">🗂️</span>
+      <span class="item-text">Pipeline</span>
+    </div>
+
+    <div class="sidebar-item" onclick="showKalender()">
+      <span class="item-icon">🗓️</span>
+      <span class="item-text">Kalender</span>
     </div>
   </div>
 
   <div class="sidebar-divider"></div>
 
-  <!-- NYHETSBREV -->
+  <!-- EVENT -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">📰 Nyhetsbrev</div>
-    <div class="sidebar-item" onclick="showNewView('newsletter-drafts')">
-      <span class="item-icon">✏️</span>
-      <span class="item-text">Utkast</span>
-    </div>
-    <div class="sidebar-item" onclick="showNewView('newsletter-subscribers')">
-      <span class="item-icon">👥</span>
-      <span class="item-text">Prenumeranter</span>
-    </div>
-  </div>
-
-  <div class="sidebar-divider"></div>
-
-  <!-- EVENT (befintligt) -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">🎉 Event</div>
+    <div class="sidebar-section-label">Event</div>
 
     <div class="sidebar-item" onclick="toggleSection('event-kommande', this); showEvents()">
       <span class="item-icon">📅</span>
@@ -1828,36 +2054,6 @@
     <div class="sidebar-item" onclick="showView('events-archive')">
       <span class="item-icon">📁</span>
       <span class="item-text">Tidigare event</span>
-    </div>
-  </div>
-
-  <div class="sidebar-divider"></div>
-
-  <!-- UPPGIFTER -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">✅ Uppgifter</div>
-    <div class="sidebar-item" onclick="showNewView('tasks-today')">
-      <span class="item-icon">📌</span>
-      <span class="item-text">Idag</span>
-    </div>
-    <div class="sidebar-item" onclick="showNewView('tasks-week')">
-      <span class="item-icon">📅</span>
-      <span class="item-text">Denna vecka</span>
-    </div>
-  </div>
-
-  <div class="sidebar-divider"></div>
-
-  <!-- AI-TEAM -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">🤖 AI-Team</div>
-    <div class="sidebar-item" onclick="showNewView('ai-agents')">
-      <span class="item-icon">🤖</span>
-      <span class="item-text">Agenter</span>
-    </div>
-    <div class="sidebar-item" onclick="showNewView('ai-log')">
-      <span class="item-icon">📋</span>
-      <span class="item-text">Aktivitetslogg</span>
     </div>
   </div>
 </aside>
@@ -2709,6 +2905,366 @@
         <div class="feed-item"><span class="feed-item-icon">💼</span><div class="feed-item-text"><strong>Försäljningsassistenten</strong> skrev offertutkast: Eva Strand</div><span class="feed-item-time">Mån 09:00</span></div>
         <div class="feed-item"><span class="feed-item-icon">📰</span><div class="feed-item-text"><strong>Redaktören</strong> föreslog ämnesrad: "Riksbanken sänker — vad det betyder för dig"</div><span class="feed-item-time">Mån 08:00</span></div>
         <div class="feed-item"><span class="feed-item-icon">✨</span><div class="feed-item-text"><strong>Innehållsskaparen</strong> batch-genererade 7 inlägg (LinkedIn tankeledare)</div><span class="feed-item-time">Sön 20:00</span></div>
+      </div>
+    </div>
+
+  </div>
+
+    <!-- ÖVERSIKT -->
+    <div class="view" id="view-oversikt">
+      <h1 class="doc-title" style="margin-bottom: 6px;">Översikt</h1>
+      <div class="doc-meta" style="margin-bottom: 24px;">Vecka 8 · 16–22 feb 2026</div>
+
+      <div class="dash-stats">
+        <div class="dash-stat">
+          <div class="dash-stat-value">7</div>
+          <div class="dash-stat-label">Utkast</div>
+          <div class="dash-stat-change">+3 den här veckan</div>
+        </div>
+        <div class="dash-stat">
+          <div class="dash-stat-value">3</div>
+          <div class="dash-stat-label">Schemalagda</div>
+          <div class="dash-stat-change">Nästa: 19 feb</div>
+        </div>
+        <div class="dash-stat">
+          <div class="dash-stat-value">12</div>
+          <div class="dash-stat-label">Publicerade totalt</div>
+          <div class="dash-stat-change">+2 senaste 7 dagarna</div>
+        </div>
+        <div class="dash-stat">
+          <div class="dash-stat-value">5</div>
+          <div class="dash-stat-label">Källor</div>
+          <div class="dash-stat-change neutral">Transkript, docs, webb</div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div>
+          <div class="dash-card">
+            <div class="dash-card-title">Senaste aktivitet</div>
+            <div class="activity-item">
+              <div class="activity-dot gold"></div>
+              <div class="activity-text">7 LinkedIn Tankeledare genererade</div>
+              <div class="activity-time">Idag 14:32</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot green"></div>
+              <div class="activity-text">Inlägg publicerat · <em>Varför oberoende rådgivning...</em></div>
+              <div class="activity-time">14 feb</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot blue"></div>
+              <div class="activity-text">Nytt källmaterial tillagt · Investerardag feb 2026</div>
+              <div class="activity-time">12 feb</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot green"></div>
+              <div class="activity-text">Inlägg publicerat · <em>3 saker du borde göra med...</em></div>
+              <div class="activity-time">11 feb</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot gold"></div>
+              <div class="activity-text">5 Instagram Quotes genererade</div>
+              <div class="activity-time">10 feb</div>
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-title">Kommande schemalagda inlägg</div>
+            <div class="activity-item">
+              <div class="activity-dot blue"></div>
+              <div class="activity-text"><span class="post-platform linkedin" style="font-size:10px; padding:2px 6px;">💼 LinkedIn</span>&nbsp; Oberoende rådgivning som affärsmodell</div>
+              <div class="activity-time">16 feb</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#d870a0;"></div>
+              <div class="activity-text"><span class="post-platform instagram" style="font-size:10px; padding:2px 6px;">📸 Instagram</span>&nbsp; Pengarna i ditt bolag borde jobba</div>
+              <div class="activity-time">19 feb</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot blue"></div>
+              <div class="activity-text"><span class="post-platform linkedin" style="font-size:10px; padding:2px 6px;">💼 LinkedIn</span>&nbsp; Tid i marknaden slår timing</div>
+              <div class="activity-time">23 feb</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="dash-card">
+            <div class="dash-card-title">Snabbåtgärder</div>
+            <div class="quick-action" onclick="showBatch()">
+              <div class="quick-action-icon">⚡</div>
+              <div>
+                <div class="quick-action-label">Generera flera inlägg</div>
+                <div class="quick-action-sub">7 inlägg på en gång</div>
+              </div>
+            </div>
+            <div class="quick-action" onclick="togglePanel(); showView('doc')">
+              <div class="quick-action-icon">✨</div>
+              <div>
+                <div class="quick-action-label">Generera ett inlägg</div>
+                <div class="quick-action-sub">Välj källa och tonläge</div>
+              </div>
+            </div>
+            <div class="quick-action" onclick="openModal('transkript')">
+              <div class="quick-action-icon">🎙️</div>
+              <div>
+                <div class="quick-action-label">Lägg till transkript</div>
+                <div class="quick-action-sub">Klistra in text</div>
+              </div>
+            </div>
+            <div class="quick-action" onclick="showPipeline()">
+              <div class="quick-action-icon">🗂️</div>
+              <div>
+                <div class="quick-action-label">Öppna pipeline</div>
+                <div class="quick-action-sub">Se status på alla inlägg</div>
+              </div>
+            </div>
+            <div class="quick-action" onclick="showKalender()">
+              <div class="quick-action-icon">🗓️</div>
+              <div>
+                <div class="quick-action-label">Öppna kalender</div>
+                <div class="quick-action-sub">Schemalagda inlägg</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIPELINE -->
+    <div class="view" id="view-pipeline">
+      <h1 class="doc-title" style="margin-bottom: 6px;">Pipeline</h1>
+      <div class="doc-meta" style="margin-bottom: 0;">11 inlägg totalt · 3 schemalagda denna vecka</div>
+
+      <div class="pipeline-board">
+        <!-- Utkast -->
+        <div class="pipeline-col">
+          <div class="pipeline-col-header">
+            <div class="pipeline-col-title">
+              <div class="pipeline-col-dot" style="background:#555;"></div>
+              Utkast
+            </div>
+            <div class="pipeline-col-count">4</div>
+          </div>
+          <div class="pipeline-cards">
+            <div class="pipe-card">
+              <div class="pipe-card-title">Varför timing av marknaden aldrig funkar</div>
+              <div class="pipe-card-meta">
+                <span class="post-platform linkedin" style="font-size:10px; padding:2px 6px;">💼 LinkedIn</span>
+                <span class="pipe-card-date">Skapad idag</span>
+                <button class="pipe-move-btn" onclick="movePipeCard(this, 'klar')">→ Klar</button>
+              </div>
+            </div>
+            <div class="pipe-card">
+              <div class="pipe-card-title">5 saker du behöver veta om tjänstepensionen</div>
+              <div class="pipe-card-meta">
+                <span class="post-platform linkedin" style="font-size:10px; padding:2px 6px;">💼 LinkedIn</span>
+                <span class="pipe-card-date">Skapad idag</span>
+                <button class="pipe-move-btn" onclick="movePipeCard(this, 'klar')">→ Klar</button>
+              </div>
+            </div>
+            <div class="pipe-card">
+              <div class="pipe-card-title">Citat: "Oberoende rådgivning är inte ett löfte..."</div>
+              <div class="pipe-card-meta">
+                <span class="post-platform instagram" style="font-size:10px; padding:2px 6px;">📸 Instagram</span>
+                <span class="pipe-card-date">Skapad idag</span>
+                <button class="pipe-move-btn" onclick="movePipeCard(this, 'klar')">→ Klar</button>
+              </div>
+            </div>
+            <div class="pipe-card">
+              <div class="pipe-card-title">3 vanliga misstag med bolagspengar</div>
+              <div class="pipe-card-meta">
+                <span class="post-platform instagram" style="font-size:10px; padding:2px 6px;">📸 Instagram</span>
+                <span class="pipe-card-date">Skapad 18 feb</span>
+                <button class="pipe-move-btn" onclick="movePipeCard(this, 'klar')">→ Klar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Klar -->
+        <div class="pipeline-col">
+          <div class="pipeline-col-header">
+            <div class="pipeline-col-title">
+              <div class="pipeline-col-dot" style="background:var(--gold);"></div>
+              Klar
+            </div>
+            <div class="pipeline-col-count" id="pipe-count-klar">2</div>
+          </div>
+          <div class="pipeline-cards" id="pipe-cards-klar">
+            <div class="pipe-card">
+              <div class="pipe-card-title">Riksbankens signaler — vad innebär det för dig?</div>
+              <div class="pipe-card-meta">
+                <span class="post-platform linkedin" style="font-size:10px; padding:2px 6px;">💼 LinkedIn</span>
+                <span class="pipe-card-date">Redigerad 17 feb</span>
+                <button class="pipe-move-btn" onclick="movePipeCard(this, 'schemalagd')">→ Schemalägg</button>
+              </div>
+            </div>
+            <div class="pipe-card">
+              <div class="pipe-card-title">Pensionssparande: karusell om fondval</div>
+              <div class="pipe-card-meta">
+                <span class="post-platform instagram" style="font-size:10px; padding:2px 6px;">📸 Instagram</span>
+                <span class="pipe-card-date">Redigerad 16 feb</span>
+                <button class="pipe-move-btn" onclick="movePipeCard(this, 'schemalagd')">→ Schemalägg</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schemalagd -->
+        <div class="pipeline-col">
+          <div class="pipeline-col-header">
+            <div class="pipeline-col-title">
+              <div class="pipeline-col-dot" style="background:var(--linkedin);"></div>
+              Schemalagd
+            </div>
+            <div class="pipeline-col-count" id="pipe-count-schemalagd">3</div>
+          </div>
+          <div class="pipeline-cards" id="pipe-cards-schemalagd">
+            <div class="pipe-card">
+              <div class="pipe-card-title">Oberoende rådgivning som affärsmodell</div>
+              <div class="pipe-card-meta">
+                <span class="post-platform linkedin" style="font-size:10px; padding:2px 6px;">💼 LinkedIn</span>
+                <span class="pipe-card-date">📅 16 feb 09:00</span>
+                <button class="pipe-move-btn" onclick="movePipeCard(this, 'publicerat')">→ Publicerat</button>
+              </div>
+            </div>
+            <div class="pipe-card">
+              <div class="pipe-card-title">Pengarna i ditt bolag borde jobba</div>
+              <div class="pipe-card-meta">
+                <span class="post-platform instagram" style="font-size:10px; padding:2px 6px;">📸 Instagram</span>
+                <span class="pipe-card-date">📅 19 feb 12:00</span>
+                <button class="pipe-move-btn" onclick="movePipeCard(this, 'publicerat')">→ Publicerat</button>
+              </div>
+            </div>
+            <div class="pipe-card">
+              <div class="pipe-card-title">Tid i marknaden slår alltid timing</div>
+              <div class="pipe-card-meta">
+                <span class="post-platform linkedin" style="font-size:10px; padding:2px 6px;">💼 LinkedIn</span>
+                <span class="pipe-card-date">📅 23 feb 09:00</span>
+                <button class="pipe-move-btn" onclick="movePipeCard(this, 'publicerat')">→ Publicerat</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publicerat -->
+        <div class="pipeline-col">
+          <div class="pipeline-col-header">
+            <div class="pipeline-col-title">
+              <div class="pipeline-col-dot" style="background:#6dbf7e;"></div>
+              Publicerat
+            </div>
+            <div class="pipeline-col-count" id="pipe-count-publicerat">2</div>
+          </div>
+          <div class="pipeline-cards" id="pipe-cards-publicerat">
+            <div class="pipe-card">
+              <div class="pipe-card-title">Varför oberoende rådgivning ger bättre resultat</div>
+              <div class="pipe-card-meta">
+                <span class="post-platform linkedin" style="font-size:10px; padding:2px 6px;">💼 LinkedIn</span>
+                <span class="pipe-card-date">Publicerat 14 feb · 847 visn.</span>
+              </div>
+            </div>
+            <div class="pipe-card">
+              <div class="pipe-card-title">3 saker du borde göra med ditt bolags överskott</div>
+              <div class="pipe-card-meta">
+                <span class="post-platform instagram" style="font-size:10px; padding:2px 6px;">📸 Instagram</span>
+                <span class="pipe-card-date">Publicerat 11 feb · 1 204 visn.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KALENDER -->
+    <div class="view" id="view-kalender">
+      <div class="cal-header-row">
+        <div class="cal-nav">
+          <div class="cal-nav-btn">‹</div>
+          <div class="cal-month">Februari 2026</div>
+          <div class="cal-nav-btn">›</div>
+        </div>
+        <div class="cal-legend">
+          <div class="cal-legend-item">
+            <div class="cal-legend-dot" style="background:var(--linkedin);"></div>
+            LinkedIn
+          </div>
+          <div class="cal-legend-item">
+            <div class="cal-legend-dot" style="background:#d870a0;"></div>
+            Instagram
+          </div>
+          <div class="cal-legend-item">
+            <div class="cal-legend-dot" style="background:var(--gold);"></div>
+            Event
+          </div>
+        </div>
+      </div>
+
+      <div class="cal-weekdays">
+        <div class="cal-weekday">Mån</div>
+        <div class="cal-weekday">Tis</div>
+        <div class="cal-weekday">Ons</div>
+        <div class="cal-weekday">Tor</div>
+        <div class="cal-weekday">Fre</div>
+        <div class="cal-weekday">Lör</div>
+        <div class="cal-weekday">Sön</div>
+      </div>
+
+      <div class="cal-grid">
+        <!-- Rad 1: 26 jan – 1 feb -->
+        <div class="cal-day other-month"><div class="cal-day-num">26</div></div>
+        <div class="cal-day other-month"><div class="cal-day-num">27</div></div>
+        <div class="cal-day other-month"><div class="cal-day-num">28</div></div>
+        <div class="cal-day other-month"><div class="cal-day-num">29</div></div>
+        <div class="cal-day other-month"><div class="cal-day-num">30</div></div>
+        <div class="cal-day other-month"><div class="cal-day-num">31</div></div>
+        <div class="cal-day"><div class="cal-day-num">1</div></div>
+        <!-- Rad 2: 2–8 feb -->
+        <div class="cal-day"><div class="cal-day-num">2</div></div>
+        <div class="cal-day"><div class="cal-day-num">3</div></div>
+        <div class="cal-day"><div class="cal-day-num">4</div></div>
+        <div class="cal-day"><div class="cal-day-num">5</div></div>
+        <div class="cal-day"><div class="cal-day-num">6</div></div>
+        <div class="cal-day"><div class="cal-day-num">7</div></div>
+        <div class="cal-day"><div class="cal-day-num">8</div></div>
+        <!-- Rad 3: 9–15 feb -->
+        <div class="cal-day"><div class="cal-day-num">9</div></div>
+        <div class="cal-day"><div class="cal-day-num">10</div></div>
+        <div class="cal-day"><div class="cal-day-num">11</div>
+          <div class="cal-event instagram">3 saker med bolagsöverskottet</div>
+        </div>
+        <div class="cal-day"><div class="cal-day-num">12</div></div>
+        <div class="cal-day"><div class="cal-day-num">13</div></div>
+        <div class="cal-day"><div class="cal-day-num">14</div>
+          <div class="cal-event linkedin">Varför oberoende rådgivning...</div>
+        </div>
+        <div class="cal-day"><div class="cal-day-num">15</div></div>
+        <!-- Rad 4: 16–22 feb -->
+        <div class="cal-day"><div class="cal-day-num">16</div>
+          <div class="cal-event linkedin">Oberoende som affärsmodell</div>
+        </div>
+        <div class="cal-day"><div class="cal-day-num">17</div></div>
+        <div class="cal-day"><div class="cal-day-num">18</div></div>
+        <div class="cal-day today"><div class="cal-day-num">19</div>
+          <div class="cal-event instagram">Pengarna i ditt bolag</div>
+        </div>
+        <div class="cal-day"><div class="cal-day-num">20</div></div>
+        <div class="cal-day"><div class="cal-day-num">21</div></div>
+        <div class="cal-day"><div class="cal-day-num">22</div></div>
+        <!-- Rad 5: 23–28 feb + 1 mar -->
+        <div class="cal-day last-row"><div class="cal-day-num">23</div>
+          <div class="cal-event linkedin">Tid i marknaden slår timing</div>
+        </div>
+        <div class="cal-day last-row"><div class="cal-day-num">24</div></div>
+        <div class="cal-day last-row"><div class="cal-day-num">25</div>
+          <div class="cal-event instagram">Pensionskarusell</div>
+        </div>
+        <div class="cal-day last-row"><div class="cal-day-num">26</div></div>
+        <div class="cal-day last-row"><div class="cal-day-num">27</div></div>
+        <div class="cal-day last-row"><div class="cal-day-num">28</div></div>
+        <div class="cal-day last-row other-month"><div class="cal-day-num">1</div></div>
       </div>
     </div>
 
@@ -3955,8 +4511,62 @@ Kolla ditt val idag. Det tar 5 minuter och kan vara det bästa du gör för fram
     _origShowViewEvent(viewId);
   };
 
+  // ─── ÖVERSIKT / PIPELINE / KALENDER ─────────────────
+  function showOversikt() {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelector('.main-content').classList.remove('batch-mode');
+    document.getElementById('view-oversikt').classList.add('active');
+    document.getElementById('breadcrumb').innerHTML =
+      '<span class="crumb current">🏠 Översikt</span>';
+  }
+
+  function showPipeline() {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelector('.main-content').classList.remove('batch-mode');
+    document.getElementById('view-pipeline').classList.add('active');
+    document.getElementById('breadcrumb').innerHTML =
+      '<span class="crumb current">🗂️ Pipeline</span>';
+  }
+
+  function showKalender() {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelector('.main-content').classList.remove('batch-mode');
+    document.getElementById('view-kalender').classList.add('active');
+    document.getElementById('breadcrumb').innerHTML =
+      '<span class="crumb current">🗓️ Kalender</span>';
+  }
+
+  function movePipeCard(btn, targetColId) {
+    const card = btn.closest('.pipe-card');
+    const targetCards = document.getElementById('pipe-cards-' + targetColId);
+    if (!targetCards) return;
+
+    if (targetColId === 'publicerat') {
+      btn.remove();
+    } else {
+      const nextMap = { klar: 'schemalagd', schemalagd: 'publicerat' };
+      const nextLabels = { schemalagd: '→ Schemalägg', publicerat: '→ Publicerat' };
+      const next = nextMap[targetColId];
+      if (next) {
+        btn.textContent = nextLabels[next] || '→ ' + next;
+        btn.setAttribute('onclick', `movePipeCard(this, '${next}')`);
+      }
+    }
+
+    targetCards.appendChild(card);
+
+    ['klar', 'schemalagd', 'publicerat'].forEach(col => {
+      const countEl = document.getElementById('pipe-count-' + col);
+      const cardsEl = document.getElementById('pipe-cards-' + col);
+      if (countEl && cardsEl) {
+        countEl.textContent = cardsEl.querySelectorAll('.pipe-card').length;
+      }
+    });
+  }
+
   // Init
-  document.getElementById('dokument').classList.add('open');
+  const dokunentEl = document.getElementById('dokument');
+  if (dokunentEl) dokunentEl.classList.add('open');
   initCustomSources();
 </script>
 </body>
