@@ -695,6 +695,158 @@
       border-color: rgba(201,169,110,0.6);
     }
 
+    /* ─── MODAL ───────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(3px);
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: #242424;
+      border: 1px solid #333;
+      border-radius: 12px;
+      width: 500px;
+      max-width: 92vw;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 28px;
+      animation: modal-in 0.15s ease;
+    }
+
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .modal-close {
+      width: 26px; height: 26px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 5px; cursor: pointer;
+      color: var(--muted); font-size: 14px;
+      transition: all 0.1s;
+    }
+    .modal-close:hover { background: var(--hover); color: var(--text); }
+
+    .modal-type-tabs {
+      display: flex; gap: 4px;
+      background: var(--surface);
+      border-radius: 8px; padding: 4px;
+      margin-bottom: 24px;
+    }
+
+    .modal-tab {
+      flex: 1; padding: 6px 4px;
+      border: none; background: transparent;
+      border-radius: 5px;
+      font-family: inherit; font-size: 11px; font-weight: 500;
+      color: var(--muted); cursor: pointer;
+      transition: all 0.15s; text-align: center;
+    }
+    .modal-tab:hover { color: var(--text); }
+    .modal-tab.active { background: #2e2e2e; color: var(--text); }
+
+    .modal-form { display: none; }
+    .modal-form.active { display: block; }
+
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-size: 10.5px; font-weight: 600;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 7px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 9px 12px;
+      font-family: inherit; font-size: 13px;
+      color: var(--text); outline: none;
+      transition: border-color 0.15s;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: #3a3a3a; }
+    .form-group select { cursor: pointer; }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #555; }
+
+    .upload-area {
+      border: 1px dashed #3a3a3a;
+      border-radius: 10px;
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--muted); font-size: 13px;
+    }
+    .upload-area:hover { border-color: #555; background: rgba(255,255,255,0.02); }
+    .upload-area .upload-icon { font-size: 34px; margin-bottom: 10px; }
+    .upload-area .upload-sub { font-size: 11px; margin-top: 5px; opacity: 0.55; }
+
+    .modal-actions {
+      display: flex; justify-content: flex-end; gap: 8px;
+      margin-top: 24px; padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Sidebar add (+) button */
+    .item-add {
+      width: 18px; height: 18px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 4px;
+      font-size: 15px; line-height: 1;
+      color: var(--muted);
+      opacity: 0;
+      transition: all 0.1s;
+      margin-right: 2px;
+    }
+    .sidebar-item:hover .item-add { opacity: 1; }
+    .item-add:hover { color: var(--text) !important; background: #3a3a3a; }
+
+    /* ─── POST DETAIL ──────────────────────────────── */
+    .post-detail-meta {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .post-detail-body {
+      max-width: 580px;
+      font-size: 14px; line-height: 1.85;
+      color: #ccc9c4;
+      white-space: pre-wrap;
+      margin-bottom: 36px;
+    }
+
+    .post-detail-actions {
+      display: flex; align-items: center; gap: 8px;
+    }
+
     /* ─── SCROLLBARS ──────────────────────────────── */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -728,6 +880,7 @@
     <div class="sidebar-item" onclick="toggleSection('transkript', this)">
       <span class="item-icon">🎙️</span>
       <span class="item-text">Transkript</span>
+      <span class="item-add" onclick="event.stopPropagation(); openModal('transkript')">+</span>
       <span class="item-arrow">›</span>
     </div>
     <div class="sidebar-sub" id="transkript">
@@ -738,6 +891,7 @@
     <div class="sidebar-item" onclick="toggleSection('presentationer', this)">
       <span class="item-icon">📊</span>
       <span class="item-text">Presentationer</span>
+      <span class="item-add" onclick="event.stopPropagation(); openModal('presentation')">+</span>
       <span class="item-arrow">›</span>
     </div>
     <div class="sidebar-sub" id="presentationer">
@@ -748,6 +902,7 @@
     <div class="sidebar-item expanded" onclick="toggleSection('dokument', this)">
       <span class="item-icon">📄</span>
       <span class="item-text">Dokument</span>
+      <span class="item-add" onclick="event.stopPropagation(); openModal('dokument')">+</span>
       <span class="item-arrow">›</span>
     </div>
     <div class="sidebar-sub open" id="dokument">
@@ -759,6 +914,7 @@
     <div class="sidebar-item" onclick="toggleSection('weblankar', this)">
       <span class="item-icon">🌐</span>
       <span class="item-text">Webblänkar</span>
+      <span class="item-add" onclick="event.stopPropagation(); openModal('webblank')">+</span>
       <span class="item-arrow">›</span>
     </div>
     <div class="sidebar-sub" id="weblankar">
@@ -949,7 +1105,7 @@
       <h1 class="doc-title" style="margin-bottom: 6px;">Inlägg</h1>
       <div class="doc-meta" style="margin-bottom: 28px;">4 inlägg · LinkedIn &amp; Instagram</div>
 
-      <div class="post-card">
+      <div class="post-card" onclick="showPostDetail(0)">
         <div class="post-card-header">
           <span class="post-platform linkedin">💼 LinkedIn</span>
           <span class="post-date">14 feb 2026</span>
@@ -958,7 +1114,7 @@
         <div class="post-card-preview">De flesta råd du får om din ekonomi kommer från någon som tjänar pengar på att du köper en viss produkt. Det är inte ett anklagande — det är systemet. Men det är viktigt att förstå hur det påverkar rådet du får...</div>
       </div>
 
-      <div class="post-card">
+      <div class="post-card" onclick="showPostDetail(1)">
         <div class="post-card-header">
           <span class="post-platform instagram">📸 Instagram</span>
           <span class="post-date">11 feb 2026</span>
@@ -967,7 +1123,7 @@
         <div class="post-card-preview">Har du pengar som "väntar" i ditt bolag utan att göra nytta? Du är inte ensam. Här är de tre vanligaste misstagen — och vad du kan göra istället 👇</div>
       </div>
 
-      <div class="post-card">
+      <div class="post-card" onclick="showPostDetail(2)">
         <div class="post-card-header">
           <span class="post-platform linkedin">💼 LinkedIn</span>
           <span class="post-date">5 feb 2026</span>
@@ -976,13 +1132,30 @@
         <div class="post-card-preview">Riksbanken signalerade vid senaste mötet att ytterligare räntesänkningar kan komma under Q1. Det kan låta som en nyhet för makroekonomer — men det har konkreta konsekvenser för dig som privatperson...</div>
       </div>
 
-      <div class="post-card">
+      <div class="post-card" onclick="showPostDetail(3)">
         <div class="post-card-header">
           <span class="post-platform instagram">📸 Instagram</span>
           <span class="post-date">28 jan 2026</span>
         </div>
         <div class="post-card-title">Pensionssparande: det du inte visste att du inte visste</div>
         <div class="post-card-preview">Visste du att valet av fonder i ditt tjänstepension kan skilja hundratusentals kronor vid pensionering — med exakt samma insättningar? Det handlar om avgifter och allokering...</div>
+      </div>
+    </div>
+
+    <!-- POST DETAIL VIEW -->
+    <div class="view" id="view-post-detail">
+      <div class="post-detail-meta">
+        <span id="detail-platform" class="post-platform linkedin">💼 LinkedIn</span>
+        <span id="detail-date" class="post-date"></span>
+      </div>
+      <h1 class="doc-title" id="detail-title" style="margin-bottom: 20px;"></h1>
+      <hr class="doc-divider" />
+      <div class="post-detail-body" id="detail-body"></div>
+      <div class="post-detail-actions">
+        <button class="btn btn-ghost" onclick="showView('posts')">← Tillbaka</button>
+        <button class="btn btn-ghost">Redigera</button>
+        <button class="btn btn-ghost">+ Lägg till i CSV</button>
+        <button class="btn btn-gold">Schemalägg</button>
       </div>
     </div>
 
@@ -1101,6 +1274,86 @@
     </button>
   </div>
 </aside>
+
+<!-- ═══ ADD SOURCE MODAL ═════════════════════════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Lägg till källa</div>
+      <div class="modal-close" onclick="closeModal()">✕</div>
+    </div>
+
+    <div class="modal-type-tabs">
+      <button class="modal-tab" data-type="transkript" onclick="setModalType('transkript', this)">🎙️ Transkript</button>
+      <button class="modal-tab" data-type="presentation" onclick="setModalType('presentation', this)">📊 Presentation</button>
+      <button class="modal-tab" data-type="dokument" onclick="setModalType('dokument', this)">📄 Dokument</button>
+      <button class="modal-tab" data-type="webblank" onclick="setModalType('webblank', this)">🌐 Webblänk</button>
+    </div>
+
+    <!-- Transkript form -->
+    <div class="modal-form" id="form-transkript">
+      <div class="form-group">
+        <label>Titel</label>
+        <input type="text" placeholder="t.ex. Investerardag mars 2026" />
+      </div>
+      <div class="form-group">
+        <label>Klistra in transkript</label>
+        <textarea rows="9" placeholder="Klistra in text från inspelning eller AI-transkribering..."></textarea>
+      </div>
+    </div>
+
+    <!-- Presentation form -->
+    <div class="modal-form" id="form-presentation">
+      <div class="upload-area">
+        <div class="upload-icon">📊</div>
+        <div>Dra och släpp PDF eller PPTX</div>
+        <div class="upload-sub">eller klicka för att välja fil</div>
+      </div>
+      <div class="form-group" style="margin-top: 16px;">
+        <label>Titel</label>
+        <input type="text" placeholder="t.ex. Q1 Kundpresentation" />
+      </div>
+    </div>
+
+    <!-- Dokument form -->
+    <div class="modal-form" id="form-dokument">
+      <div class="form-group">
+        <label>Titel</label>
+        <input type="text" placeholder="t.ex. Marknadskommentarer mars 2026" />
+      </div>
+      <div class="form-group">
+        <label>Innehåll</label>
+        <textarea rows="9" placeholder="Klistra in text..."></textarea>
+      </div>
+    </div>
+
+    <!-- Webblänk form -->
+    <div class="modal-form" id="form-webblank">
+      <div class="form-group">
+        <label>URL</label>
+        <input type="url" placeholder="https://..." />
+      </div>
+      <div class="form-group">
+        <label>Namn</label>
+        <input type="text" placeholder="t.ex. Riksbanken" />
+      </div>
+      <div class="form-group">
+        <label>Uppdateringsfrekvens</label>
+        <select>
+          <option>Manuellt</option>
+          <option>Dagligen</option>
+          <option>Veckovis</option>
+          <option>Månadsvis</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Avbryt</button>
+      <button class="btn btn-gold">Lägg till</button>
+    </div>
+  </div>
+</div>
 
 <!-- ═══ JAVASCRIPT ═══════════════════════════════════ -->
 <script>
@@ -1250,6 +1503,126 @@ Länk i bio 👆
       btn.textContent = 'Kopierat ✓';
       setTimeout(() => { btn.textContent = 'Kopiera'; }, 2000);
     });
+  }
+
+  // ─── MODAL ────────────────────────────────────────────
+  function openModal(type) {
+    document.getElementById('modal-overlay').classList.add('open');
+    setModalType(type);
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  }
+
+  function setModalType(type, clickedTab) {
+    document.querySelectorAll('.modal-form').forEach(f => f.classList.remove('active'));
+    document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+    const form = document.getElementById('form-' + type);
+    if (form) form.classList.add('active');
+    if (clickedTab) {
+      clickedTab.classList.add('active');
+    } else {
+      const tab = document.querySelector(`.modal-tab[data-type="${type}"]`);
+      if (tab) tab.classList.add('active');
+    }
+  }
+
+  // ─── POST DETAIL ──────────────────────────────────────
+  const postData = [
+    {
+      platform: 'linkedin',
+      platformLabel: '💼 LinkedIn',
+      date: '14 feb 2026',
+      title: 'Varför oberoende rådgivning ger bättre resultat',
+      body: `De flesta råd du får om din ekonomi kommer från någon som tjänar pengar på att du köper en viss produkt. Det är inte ett anklagande — det är systemet. Men det är viktigt att förstå hur det påverkar rådet du får.
+
+En bankrådgivare som säljer fondportföljer tjänar mer om du väljer deras fonder. En försäkringsmäklare tjänar på premien. Det skapar en inbyggd intressekonflikt — hur välmenande personen än är.
+
+Oberoende rådgivning löser det grundläggande problemet: vi tjänar pengar av dig, inte av produkterna vi rekommenderar.
+
+Det låter som en liten skillnad. Det är en enorm skillnad.
+
+#finansiellrådgivning #cefund #oberoende #förmögenhetsplanering`
+    },
+    {
+      platform: 'instagram',
+      platformLabel: '📸 Instagram',
+      date: '11 feb 2026',
+      title: '3 saker du borde göra med ditt bolags överskott',
+      body: `Har du pengar som "väntar" i ditt bolag utan att göra nytta? Du är inte ensam. Här är de tre vanligaste misstagen — och vad du kan göra istället 👇
+
+1️⃣ Kapitalförsäkring i bolaget
+→ Lägre skatt på avkastning, enklare administration
+
+2️⃣ Pensionsavsättning
+→ Avdragsgill för bolaget, skatteuppskjuten för dig
+
+3️⃣ Aktiv allokering
+→ Istället för 0,01% på företagskontot
+
+Länk i bio 👆
+
+#cefund #företagarekonomi #pension #kapitalförvaltning`
+    },
+    {
+      platform: 'linkedin',
+      platformLabel: '💼 LinkedIn',
+      date: '5 feb 2026',
+      title: 'Riksbankens signaler — vad betyder det för dig?',
+      body: `Riksbanken signalerade vid senaste mötet att ytterligare räntesänkningar kan komma under Q1. Det kan låta som en nyhet för makroekonomer — men det har konkreta konsekvenser för dig som privatperson.
+
+Lägre ränta innebär bland annat:
+→ Billigare bolån (om du har rörlig ränta)
+→ Lägre avkastning på räntesparande
+→ Fastighetspriserna kan röra sig uppåt igen
+
+För dig med ett bolag: kapitalförsäkringens skattemässiga ränta (statslåneräntan) justeras också — vilket påverkar hur mycket du betalar i skatt på avkastningen.
+
+Vill du veta hur du bör positionera dig? Hör av dig.
+
+#riksbanken #ränta #privatekonomi #cefund #finansiellrådgivning`
+    },
+    {
+      platform: 'instagram',
+      platformLabel: '📸 Instagram',
+      date: '28 jan 2026',
+      title: 'Pensionssparande: det du inte visste att du inte visste',
+      body: `Visste du att valet av fonder i ditt tjänstepension kan skilja hundratusentals kronor vid pensionering — med exakt samma insättningar?
+
+Det handlar om avgifter och allokering.
+
+En fond med 1,5% avgift vs 0,2% avgift:
+På 30 år och 5 000 kr/mån → skillnad på +400 000 kr 😶
+
+De flesta väljer aldrig aktivt. De hamnar i standardalternativet.
+
+Kolla ditt val idag. Det tar 5 minuter och kan vara det bästa du gör för framtida dig.
+
+#pension #tjänstepension #spara #privatekonomi #cefund`
+    }
+  ];
+
+  function showPostDetail(idx) {
+    const p = postData[idx];
+    const platformEl = document.getElementById('detail-platform');
+    platformEl.textContent = p.platformLabel;
+    platformEl.className = 'post-platform ' + p.platform;
+    document.getElementById('detail-date').textContent = p.date;
+    document.getElementById('detail-title').textContent = p.title;
+    document.getElementById('detail-body').textContent = p.body;
+
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-post-detail').classList.add('active');
+    document.getElementById('breadcrumb').innerHTML = `
+      <span class="crumb" onclick="showView('posts')" style="cursor:pointer;">Inlägg</span>
+      <span class="sep">›</span>
+      <span class="crumb current">${p.title}</span>
+    `;
   }
 
   // ─── CSV EXPORT ───────────────────────────────────────
