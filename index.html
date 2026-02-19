@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Writing Studio — Cefund</title>
+  <title>Cefund Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -1925,111 +1925,121 @@
     <input type="text" placeholder="Sök..." oninput="searchSidebar(this.value)" />
   </div>
 
-  <!-- KÄLLBIBLIOTEK -->
+  <!-- ÖVERSIKT -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">Källbibliotek</div>
-
-    <div class="sidebar-item" onclick="toggleSection('transkript', this)">
-      <span class="item-icon">🎙️</span>
-      <span class="item-text">Transkript</span>
-      <span class="item-add" onclick="event.stopPropagation(); openModal('transkript')">+</span>
-      <span class="item-arrow">›</span>
-    </div>
-    <div class="sidebar-sub" id="transkript">
-      <div class="sidebar-sub-item active" onclick="showDoc('investering', this)">Investerardag feb 2026</div>
-    </div>
-
-    <div class="sidebar-item" onclick="toggleSection('presentationer', this)">
-      <span class="item-icon">📊</span>
-      <span class="item-text">Presentationer</span>
-      <span class="item-add" onclick="event.stopPropagation(); openModal('presentation')">+</span>
-      <span class="item-arrow">›</span>
-    </div>
-    <div class="sidebar-sub" id="presentationer">
-      <div class="sidebar-sub-item" onclick="showDoc('kund', this)">Kundpresentation Q1 2026</div>
-    </div>
-
-    <div class="sidebar-item expanded" onclick="toggleSection('dokument', this)">
-      <span class="item-icon">📄</span>
-      <span class="item-text">Dokument</span>
-      <span class="item-add" onclick="event.stopPropagation(); openModal('dokument')">+</span>
-      <span class="item-arrow">›</span>
-    </div>
-    <div class="sidebar-sub open" id="dokument">
-      <div class="sidebar-sub-item" onclick="showDoc('marknad', this)">Marknadskommentarer feb</div>
-      <div class="sidebar-sub-item" onclick="showDoc('team', this)">Teamets bakgrund</div>
-    </div>
-
-    <div class="sidebar-item" onclick="toggleSection('weblankar', this)">
-      <span class="item-icon">🌐</span>
-      <span class="item-text">Webblänkar</span>
-      <span class="item-add" onclick="event.stopPropagation(); openModal('webblank')">+</span>
-      <span class="item-arrow">›</span>
-    </div>
-    <div class="sidebar-sub" id="weblankar">
-      <div class="sidebar-sub-item" onclick="showDoc('hemsida', this)">cefund.se</div>
+    <div class="sidebar-section-label">📊 Översikt</div>
+    <div class="sidebar-item" onclick="showNewView('dashboard')">
+      <span class="item-icon">🏠</span>
+      <span class="item-text">Dashboard</span>
     </div>
   </div>
 
   <div class="sidebar-divider"></div>
 
-  <!-- INLÄGG -->
+  <!-- KONTAKTER -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">Inlägg</div>
+    <div class="sidebar-section-label">👥 Kontakter</div>
+    <div class="sidebar-item" onclick="showNewView('contacts')">
+      <span class="item-icon">📇</span>
+      <span class="item-text">Alla kontakter</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('pipeline')">
+      <span class="item-icon">📊</span>
+      <span class="item-text">Pipeline</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- MÖTEN -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">📅 Möten</div>
+    <div class="sidebar-item" onclick="showNewView('meetings')">
+      <span class="item-icon">📅</span>
+      <span class="item-text">Kommande möten</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('meeting-notes')">
+      <span class="item-icon">📝</span>
+      <span class="item-text">Mötesanteckningar</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- ERBJUDANDEN -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">📄 Erbjudanden</div>
+    <div class="sidebar-item" onclick="showNewView('offers')">
+      <span class="item-icon">💼</span>
+      <span class="item-text">Aktiva offerter</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('offer-templates')">
+      <span class="item-icon">📋</span>
+      <span class="item-text">Mallar</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- CONTENT (befintligt) -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">✍️ Content</div>
+
+    <div class="sidebar-item" onclick="toggleSection('kallbibliotek-nav', this)">
+      <span class="item-icon">📚</span>
+      <span class="item-text">Källbibliotek</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub" id="kallbibliotek-nav">
+      <div class="sidebar-sub-item active" onclick="showDoc('investering', this)">Investerardag feb 2026</div>
+      <div class="sidebar-sub-item" onclick="showDoc('kund', this)">Kundpresentation Q1 2026</div>
+      <div class="sidebar-sub-item" onclick="showDoc('marknad', this)">Marknadskommentarer feb</div>
+      <div class="sidebar-sub-item" onclick="showDoc('team', this)">Teamets bakgrund</div>
+      <div class="sidebar-sub-item" onclick="showDoc('hemsida', this)">cefund.se</div>
+    </div>
 
     <div class="sidebar-item" onclick="toggleSection('posts-nav', this); showView('posts')">
       <span class="item-icon">📝</span>
-      <span class="item-text">Alla inlägg</span>
+      <span class="item-text">Inlägg</span>
       <span class="item-arrow">›</span>
     </div>
     <div class="sidebar-sub" id="posts-nav">
       <div class="sidebar-sub-item" onclick="filterPosts('linkedin', this)">LinkedIn</div>
       <div class="sidebar-sub-item" onclick="filterPosts('instagram', this)">Instagram</div>
     </div>
-  </div>
 
-  <div class="sidebar-divider"></div>
-
-  <!-- STUDIO -->
-  <div class="sidebar-section">
-    <div class="sidebar-section-label">Studio</div>
-
-    <div class="sidebar-item" onclick="togglePanel(); showView('doc')">
+    <div class="sidebar-item" onclick="toggleSection('studio-nav', this)">
       <span class="item-icon">✨</span>
-      <span class="item-text">Generera inlägg</span>
+      <span class="item-text">Studio</span>
+      <span class="item-arrow">›</span>
     </div>
-
-    <div class="sidebar-item" onclick="showBatch()">
-      <span class="item-icon">⚡</span>
-      <span class="item-text">Generera flera</span>
-    </div>
-
-    <div class="sidebar-item" onclick="showView('published')">
-      <span class="item-icon">📋</span>
-      <span class="item-text">Publicerat</span>
-    </div>
-
-    <div class="sidebar-item" onclick="showOversikt()">
-      <span class="item-icon">🏠</span>
-      <span class="item-text">Översikt</span>
-    </div>
-
-    <div class="sidebar-item" onclick="showPipeline()">
-      <span class="item-icon">🗂️</span>
-      <span class="item-text">Pipeline</span>
-    </div>
-
-    <div class="sidebar-item" onclick="showKalender()">
-      <span class="item-icon">🗓️</span>
-      <span class="item-text">Kalender</span>
+    <div class="sidebar-sub" id="studio-nav">
+      <div class="sidebar-sub-item" onclick="togglePanel(); showView('doc')">Generera inlägg</div>
+      <div class="sidebar-sub-item" onclick="showBatch()">Generera flera</div>
+      <div class="sidebar-sub-item" onclick="showView('published')">Publicerat</div>
     </div>
   </div>
 
   <div class="sidebar-divider"></div>
 
-  <!-- EVENT -->
+  <!-- NYHETSBREV -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">Event</div>
+    <div class="sidebar-section-label">📰 Nyhetsbrev</div>
+    <div class="sidebar-item" onclick="showNewView('newsletter-drafts')">
+      <span class="item-icon">✏️</span>
+      <span class="item-text">Utkast</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('newsletter-subscribers')">
+      <span class="item-icon">👥</span>
+      <span class="item-text">Prenumeranter</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- EVENT (befintligt) -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">🎉 Event</div>
 
     <div class="sidebar-item" onclick="toggleSection('event-kommande', this); showEvents()">
       <span class="item-icon">📅</span>
@@ -2054,6 +2064,36 @@
     <div class="sidebar-item" onclick="showView('events-archive')">
       <span class="item-icon">📁</span>
       <span class="item-text">Tidigare event</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- UPPGIFTER -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">✅ Uppgifter</div>
+    <div class="sidebar-item" onclick="showNewView('tasks-today')">
+      <span class="item-icon">📌</span>
+      <span class="item-text">Idag</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('tasks-week')">
+      <span class="item-icon">📅</span>
+      <span class="item-text">Denna vecka</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- AI-TEAM -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">🤖 AI-Team</div>
+    <div class="sidebar-item" onclick="showNewView('ai-agents')">
+      <span class="item-icon">🤖</span>
+      <span class="item-text">Agenter</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('ai-log')">
+      <span class="item-icon">📋</span>
+      <span class="item-text">Aktivitetslogg</span>
     </div>
   </div>
 </aside>
