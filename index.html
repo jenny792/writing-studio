@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Writing Studio — Cefund</title>
+  <title>Cefund Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -1140,6 +1140,536 @@
     /* ─── VIEWS ───────────────────────────────────── */
     .view { display: none; }
     .view.active { display: block; }
+
+    /* ─── EVENT ───────────────────────────────────── */
+    .event-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      max-width: 640px;
+    }
+    .event-card:hover { background: var(--hover); border-color: #363636; }
+
+    .event-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .event-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .event-meta {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .event-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+    .event-badge.planering {
+      background: rgba(201,169,110,0.15);
+      color: var(--gold);
+    }
+    .event-badge.bekraftat {
+      background: rgba(109,191,126,0.15);
+      color: #6dbf7e;
+    }
+
+    .event-guests {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .guest-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      max-width: 640px;
+    }
+    .guest-table th {
+      text-align: left;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .guest-table td {
+      font-size: 12.5px;
+      color: var(--text);
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .guest-status {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .guest-status.bjuden {
+      background: rgba(91,143,222,0.15);
+      color: var(--linkedin);
+    }
+    .guest-status.bekraftad {
+      background: rgba(109,191,126,0.15);
+      color: #6dbf7e;
+    }
+    .guest-status.tackat-nej {
+      background: rgba(224,112,112,0.15);
+      color: #e07070;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 13px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+    .checklist-item input[type="checkbox"] {
+      accent-color: var(--gold);
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .checklist-item.done { color: var(--muted); text-decoration: line-through; }
+
+    .event-summary {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .event-summary-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .event-summary-badge strong {
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .event-section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 28px 0 12px;
+    }
+
+    /* ─── DASHBOARD ──────────────────────────────────── */
+    .dashboard-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .dash-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      transition: all 0.15s;
+    }
+    .dash-card:hover { border-color: #363636; }
+
+    .dash-card-icon { font-size: 20px; margin-bottom: 8px; }
+    .dash-card-value {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .dash-card-label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .activity-feed {
+      max-width: 640px;
+      margin-bottom: 32px;
+    }
+
+    .feed-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text);
+    }
+    .feed-item-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .feed-item-time { font-size: 11px; color: var(--muted); margin-top: 3px; white-space: nowrap; }
+    .feed-item-text { flex: 1; line-height: 1.5; }
+
+    .mini-calendar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      max-width: 640px;
+    }
+    .cal-day {
+      min-width: 80px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .cal-day-name { font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .cal-day-num { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .cal-day-dot { width: 6px; height: 6px; border-radius: 50%; margin: 0 auto; }
+    .cal-day-dot.gold { background: var(--gold); }
+    .cal-day-dot.blue { background: var(--linkedin); }
+    .cal-day.today { border-color: rgba(201,169,110,0.5); background: rgba(201,169,110,0.05); }
+
+    /* ─── KONTAKTER ──────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+      max-width: 900px;
+    }
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .contact-card:hover { background: var(--hover); border-color: #363636; }
+
+    .contact-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .contact-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--hover);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 600; color: var(--muted);
+      flex-shrink: 0;
+    }
+    .contact-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .contact-company { font-size: 12px; color: var(--muted); }
+
+    .contact-tag {
+      display: inline-flex;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .contact-tag.natverk { background: rgba(91,143,222,0.15); color: var(--linkedin); }
+    .contact-tag.prospekt { background: rgba(201,169,110,0.15); color: var(--gold); }
+    .contact-tag.kund { background: rgba(109,191,126,0.15); color: #6dbf7e; }
+
+    .contact-last { font-size: 11px; color: var(--muted); }
+
+    /* Pipeline */
+    .pipeline {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+    }
+    .pipeline-col {
+      min-width: 220px;
+      flex: 1;
+    }
+    .pipeline-col-header {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .pipeline-col-header.gold-border { border-color: var(--gold); }
+    .pipeline-col-header.green-border { border-color: #6dbf7e; }
+    .pipeline-col-header.blue-border { border-color: var(--linkedin); }
+
+    .pipeline-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pipeline-item:hover { background: var(--hover); }
+    .pipeline-item-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    /* ─── MÖTEN ──────────────────────────────────────── */
+    .meeting-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      max-width: 640px;
+    }
+    .meeting-card:hover { background: var(--hover); border-color: #363636; }
+
+    .meeting-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .meeting-date-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gold);
+    }
+    .meeting-type-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(201,169,110,0.15);
+      color: var(--gold);
+    }
+    .meeting-card-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .meeting-card-participants { font-size: 12px; color: var(--muted); }
+
+    /* ─── ERBJUDANDEN ────────────────────────────────── */
+    .offer-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      max-width: 640px;
+    }
+    .offer-card:hover { background: var(--hover); border-color: #363636; }
+
+    .offer-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .offer-status {
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+    .offer-status.utkast { background: rgba(154,151,146,0.15); color: var(--muted); }
+    .offer-status.skickad { background: rgba(91,143,222,0.15); color: var(--linkedin); }
+    .offer-status.accepterad { background: rgba(109,191,126,0.15); color: #6dbf7e; }
+
+    .offer-card-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .offer-card-meta { font-size: 12px; color: var(--muted); }
+    .offer-amount { font-size: 13px; font-weight: 600; color: var(--gold); }
+
+    /* ─── NYHETSBREV ─────────────────────────────────── */
+    .newsletter-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      max-width: 640px;
+    }
+    .newsletter-card:hover { background: var(--hover); border-color: #363636; }
+
+    .newsletter-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .newsletter-status {
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+    .newsletter-status.utkast { background: rgba(154,151,146,0.15); color: var(--muted); }
+    .newsletter-status.planerad { background: rgba(201,169,110,0.15); color: var(--gold); }
+    .newsletter-status.skickat { background: rgba(109,191,126,0.15); color: #6dbf7e; }
+
+    .newsletter-card-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .newsletter-card-meta { font-size: 12px; color: var(--muted); }
+
+    /* ─── UPPGIFTER ──────────────────────────────────── */
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      max-width: 640px;
+      transition: all 0.15s;
+    }
+    .task-item:hover { background: var(--hover); }
+
+    .task-checkbox {
+      width: 18px; height: 18px;
+      accent-color: var(--gold);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .task-content { flex: 1; }
+    .task-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .task-source { font-size: 11px; color: var(--muted); }
+
+    .task-tag {
+      display: inline-flex;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-left: 6px;
+    }
+    .task-tag.mote { background: rgba(201,169,110,0.15); color: var(--gold); }
+    .task-tag.event { background: rgba(130,80,200,0.15); color: #a070d0; }
+    .task-tag.offert { background: rgba(91,143,222,0.15); color: var(--linkedin); }
+    .task-tag.content { background: rgba(109,191,126,0.15); color: #6dbf7e; }
+
+    .task-priority {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .task-priority.hog { background: rgba(224,112,112,0.15); color: #e07070; }
+    .task-priority.medel { background: rgba(201,169,110,0.15); color: var(--gold); }
+    .task-priority.lag { background: rgba(154,151,146,0.15); color: var(--muted); }
+
+    /* ─── AI-TEAM ────────────────────────────────────── */
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px;
+    }
+    .agent-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      transition: all 0.15s;
+    }
+    .agent-card:hover { border-color: #363636; }
+
+    .agent-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .agent-icon { font-size: 24px; }
+    .agent-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .agent-role { font-size: 12px; color: var(--muted); }
+
+    .agent-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .agent-status.aktiv { background: rgba(109,191,126,0.15); color: #6dbf7e; }
+    .agent-status.pausad { background: rgba(154,151,146,0.15); color: var(--muted); }
+    .agent-status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+    .agent-status.aktiv .agent-status-dot { background: #6dbf7e; }
+    .agent-status.pausad .agent-status-dot { background: var(--muted); }
+
+    .agent-stats { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+    .agent-stats strong { color: var(--text); }
+
+    .agent-log {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+    .agent-log-item { padding: 3px 0; }
+    .agent-log-time { color: #555; margin-right: 6px; }
+
+    /* ─── FLOW CHAINS (Dashboard) ────────────────────── */
+    .flow-chain {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      max-width: 640px;
+    }
+    .flow-chain-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      font-size: 11px;
+    }
+    .flow-step {
+      background: var(--hover);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 4px 10px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .flow-step.active-step { border-color: rgba(201,169,110,0.5); color: var(--gold); background: rgba(201,169,110,0.05); }
+    .flow-arrow { color: #444; font-size: 10px; }
+
+    /* ─── SECTION TITLE REUSABLE ─────────────────────── */
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 28px 0 12px;
+    }
+    .section-title:first-child { margin-top: 0; }
   </style>
 </head>
 <body>
@@ -1148,100 +1678,186 @@
 <aside class="sidebar">
   <div class="sidebar-logo">
     <div class="logo-mark">C</div>
-    Writing Studio
+    Cefund Studio
   </div>
 
   <div class="sidebar-search">
     <span class="search-icon">🔍</span>
-    <input type="text" placeholder="Sök..." />
+    <input type="text" placeholder="Sök..." oninput="searchSidebar(this.value)" />
   </div>
 
-  <!-- KÄLLBIBLIOTEK -->
+  <!-- ÖVERSIKT -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">Källbibliotek</div>
-
-    <!-- Transkript -->
-    <div class="sidebar-item" onclick="toggleSection('transkript', this)">
-      <span class="item-icon">🎙️</span>
-      <span class="item-text">Transkript</span>
-      <span class="item-add" onclick="event.stopPropagation(); openModal('transkript')">+</span>
-      <span class="item-arrow">›</span>
-    </div>
-    <div class="sidebar-sub" id="transkript">
-      <div class="sidebar-sub-item active" onclick="showDoc('investering', this)">Investerardag feb 2026</div>
-    </div>
-
-    <!-- Presentationer -->
-    <div class="sidebar-item" onclick="toggleSection('presentationer', this)">
-      <span class="item-icon">📊</span>
-      <span class="item-text">Presentationer</span>
-      <span class="item-add" onclick="event.stopPropagation(); openModal('presentation')">+</span>
-      <span class="item-arrow">›</span>
-    </div>
-    <div class="sidebar-sub" id="presentationer">
-      <div class="sidebar-sub-item" onclick="showDoc('kund', this)">Kundpresentation Q1 2026</div>
-    </div>
-
-    <!-- Dokument -->
-    <div class="sidebar-item expanded" onclick="toggleSection('dokument', this)">
-      <span class="item-icon">📄</span>
-      <span class="item-text">Dokument</span>
-      <span class="item-add" onclick="event.stopPropagation(); openModal('dokument')">+</span>
-      <span class="item-arrow">›</span>
-    </div>
-    <div class="sidebar-sub open" id="dokument">
-      <div class="sidebar-sub-item" onclick="showDoc('marknad', this)">Marknadskommentarer feb</div>
-      <div class="sidebar-sub-item" onclick="showDoc('team', this)">Teamets bakgrund</div>
-    </div>
-
-    <!-- Webblänkar -->
-    <div class="sidebar-item" onclick="toggleSection('weblankar', this)">
-      <span class="item-icon">🌐</span>
-      <span class="item-text">Webblänkar</span>
-      <span class="item-add" onclick="event.stopPropagation(); openModal('webblank')">+</span>
-      <span class="item-arrow">›</span>
-    </div>
-    <div class="sidebar-sub" id="weblankar">
-      <div class="sidebar-sub-item" onclick="showDoc('hemsida', this)">cefund.se</div>
+    <div class="sidebar-section-label">📊 Översikt</div>
+    <div class="sidebar-item" onclick="showNewView('dashboard')">
+      <span class="item-icon">🏠</span>
+      <span class="item-text">Dashboard</span>
     </div>
   </div>
 
   <div class="sidebar-divider"></div>
 
-  <!-- INLÄGG -->
+  <!-- KONTAKTER -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">Inlägg</div>
+    <div class="sidebar-section-label">👥 Kontakter</div>
+    <div class="sidebar-item" onclick="showNewView('contacts')">
+      <span class="item-icon">📇</span>
+      <span class="item-text">Alla kontakter</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('pipeline')">
+      <span class="item-icon">📊</span>
+      <span class="item-text">Pipeline</span>
+    </div>
+  </div>
 
+  <div class="sidebar-divider"></div>
+
+  <!-- MÖTEN -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">📅 Möten</div>
+    <div class="sidebar-item" onclick="showNewView('meetings')">
+      <span class="item-icon">📅</span>
+      <span class="item-text">Kommande möten</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('meeting-notes')">
+      <span class="item-icon">📝</span>
+      <span class="item-text">Mötesanteckningar</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- ERBJUDANDEN -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">📄 Erbjudanden</div>
+    <div class="sidebar-item" onclick="showNewView('offers')">
+      <span class="item-icon">💼</span>
+      <span class="item-text">Aktiva offerter</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('offer-templates')">
+      <span class="item-icon">📋</span>
+      <span class="item-text">Mallar</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- CONTENT (befintligt) -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">✍️ Content</div>
+
+    <!-- Källbibliotek -->
+    <div class="sidebar-item" onclick="toggleSection('kallbibliotek-nav', this)">
+      <span class="item-icon">📚</span>
+      <span class="item-text">Källbibliotek</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub" id="kallbibliotek-nav">
+      <div class="sidebar-sub-item active" onclick="showDoc('investering', this)">Investerardag feb 2026</div>
+      <div class="sidebar-sub-item" onclick="showDoc('kund', this)">Kundpresentation Q1 2026</div>
+      <div class="sidebar-sub-item" onclick="showDoc('marknad', this)">Marknadskommentarer feb</div>
+      <div class="sidebar-sub-item" onclick="showDoc('team', this)">Teamets bakgrund</div>
+      <div class="sidebar-sub-item" onclick="showDoc('hemsida', this)">cefund.se</div>
+    </div>
+
+    <!-- Inlägg -->
     <div class="sidebar-item" onclick="toggleSection('posts-nav', this); showView('posts')">
       <span class="item-icon">📝</span>
-      <span class="item-text">Alla inlägg</span>
+      <span class="item-text">Inlägg</span>
       <span class="item-arrow">›</span>
     </div>
     <div class="sidebar-sub" id="posts-nav">
       <div class="sidebar-sub-item" onclick="filterPosts('linkedin', this)">LinkedIn</div>
       <div class="sidebar-sub-item" onclick="filterPosts('instagram', this)">Instagram</div>
     </div>
+
+    <!-- Studio -->
+    <div class="sidebar-item" onclick="toggleSection('studio-nav', this)">
+      <span class="item-icon">✨</span>
+      <span class="item-text">Studio</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub" id="studio-nav">
+      <div class="sidebar-sub-item" onclick="togglePanel(); showView('doc')">Generera inlägg</div>
+      <div class="sidebar-sub-item" onclick="showBatch()">Generera flera</div>
+      <div class="sidebar-sub-item" onclick="showView('published')">Publicerat</div>
+    </div>
   </div>
 
   <div class="sidebar-divider"></div>
 
-  <!-- STUDIO -->
+  <!-- NYHETSBREV -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">Studio</div>
+    <div class="sidebar-section-label">📰 Nyhetsbrev</div>
+    <div class="sidebar-item" onclick="showNewView('newsletter-drafts')">
+      <span class="item-icon">✏️</span>
+      <span class="item-text">Utkast</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('newsletter-subscribers')">
+      <span class="item-icon">👥</span>
+      <span class="item-text">Prenumeranter</span>
+    </div>
+  </div>
 
-    <div class="sidebar-item" onclick="togglePanel(); showView('doc')">
-      <span class="item-icon">✨</span>
-      <span class="item-text">Generera inlägg</span>
+  <div class="sidebar-divider"></div>
+
+  <!-- EVENT (befintligt) -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">🎉 Event</div>
+
+    <div class="sidebar-item" onclick="toggleSection('event-kommande', this); showEvents()">
+      <span class="item-icon">📅</span>
+      <span class="item-text">Kommande event</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub" id="event-kommande">
+      <div class="sidebar-sub-item" onclick="showEvent('varmingel', this)">Vårmingel 15 mars</div>
+      <div class="sidebar-sub-item" onclick="showEvent('kundevent', this)">Kundevent april</div>
     </div>
 
-    <div class="sidebar-item" onclick="showBatch()">
-      <span class="item-icon">⚡</span>
-      <span class="item-text">Generera flera</span>
+    <div class="sidebar-item" onclick="toggleSection('event-gastlistor', this)">
+      <span class="item-icon">🎟️</span>
+      <span class="item-text">Gästlistor</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub" id="event-gastlistor">
+      <div class="sidebar-sub-item" onclick="showGuestlist('varmingel', this)">Vårmingel 15 mars</div>
+      <div class="sidebar-sub-item" onclick="showGuestlist('kundevent', this)">Kundevent april</div>
     </div>
 
-    <div class="sidebar-item" onclick="showView('published')">
+    <div class="sidebar-item" onclick="showView('events-archive')">
+      <span class="item-icon">📁</span>
+      <span class="item-text">Tidigare event</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- UPPGIFTER -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">✅ Uppgifter</div>
+    <div class="sidebar-item" onclick="showNewView('tasks-today')">
+      <span class="item-icon">📌</span>
+      <span class="item-text">Idag</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('tasks-week')">
+      <span class="item-icon">📅</span>
+      <span class="item-text">Denna vecka</span>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- AI-TEAM -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">🤖 AI-Team</div>
+    <div class="sidebar-item" onclick="showNewView('ai-agents')">
+      <span class="item-icon">🤖</span>
+      <span class="item-text">Agenter</span>
+    </div>
+    <div class="sidebar-item" onclick="showNewView('ai-log')">
       <span class="item-icon">📋</span>
-      <span class="item-text">Publicerat</span>
+      <span class="item-text">Aktivitetslogg</span>
     </div>
   </div>
 </aside>
@@ -1557,6 +2173,545 @@
       </div>
     </div>
 
+    <!-- EVENTS OVERVIEW -->
+    <div class="view" id="view-events">
+      <h1 class="doc-title" style="margin-bottom: 6px;">Kommande event</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">2 event planerade</div>
+
+      <div class="event-card" onclick="showEvent('varmingel')">
+        <div class="event-card-header">
+          <span class="event-badge planering">Planering</span>
+          <span class="event-guests">👥 24 gäster</span>
+        </div>
+        <div class="event-card-title">Vårmingel 15 mars</div>
+        <div class="event-meta">
+          <span>📅 15 mars 2026</span>
+          <span>📍 Brasserie Astoria, Stockholm</span>
+        </div>
+      </div>
+
+      <div class="event-card" onclick="showEvent('kundevent')">
+        <div class="event-card-header">
+          <span class="event-badge bekraftat">Bekräftat</span>
+          <span class="event-guests">👥 42 gäster</span>
+        </div>
+        <div class="event-card-title">Kundevent april</div>
+        <div class="event-meta">
+          <span>📅 10 april 2026</span>
+          <span>📍 Fotografiska, Stockholm</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENT DETAIL -->
+    <div class="view" id="view-event-detail">
+      <span class="doc-icon">📅</span>
+      <h1 class="doc-title" id="event-detail-title">Vårmingel 15 mars</h1>
+      <div class="doc-meta" id="event-detail-meta" style="margin-bottom: 28px;">
+        <span>📅 15 mars 2026, 17:00–20:00</span>
+        <span class="dot">●</span>
+        <span>📍 Brasserie Astoria, Stockholm</span>
+      </div>
+      <hr class="doc-divider" />
+
+      <div class="doc-body" id="event-detail-body">
+        <h2>Detaljer</h2>
+        <div class="event-meta" style="flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 20px;">
+          <span><strong>Datum:</strong> 15 mars 2026</span>
+          <span><strong>Tid:</strong> 17:00–20:00</span>
+          <span><strong>Plats:</strong> Brasserie Astoria, Nybrogatan 6, Stockholm</span>
+          <span><strong>Typ:</strong> Mingel &amp; networking</span>
+        </div>
+
+        <p>Informellt mingel för befintliga kunder och prospects. Syftet är att stärka relationer och presentera Cefunds tjänster i en avslappnad miljö.</p>
+
+        <h2>Gästlista</h2>
+        <table class="guest-table">
+          <thead>
+            <tr><th>Namn</th><th>E-post</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Anna Svensson</td><td>anna@foretaget.se</td><td><span class="guest-status bekraftad">Bekräftad</span></td></tr>
+            <tr><td>Erik Johansson</td><td>erik@konsult.se</td><td><span class="guest-status bekraftad">Bekräftad</span></td></tr>
+            <tr><td>Maria Lindberg</td><td>maria@startup.io</td><td><span class="guest-status bjuden">Bjuden</span></td></tr>
+            <tr><td>Jonas Ek</td><td>jonas@byra.se</td><td><span class="guest-status bjuden">Bjuden</span></td></tr>
+            <tr><td>Sara Holm</td><td>sara@invest.se</td><td><span class="guest-status tackat-nej">Tackat nej</span></td></tr>
+          </tbody>
+        </table>
+
+        <h2>Att göra</h2>
+        <div style="max-width: 480px;">
+          <label class="checklist-item done"><input type="checkbox" checked /> Boka lokal</label>
+          <label class="checklist-item done"><input type="checkbox" checked /> Skicka inbjudningar</label>
+          <label class="checklist-item"><input type="checkbox" /> Beställ catering</label>
+          <label class="checklist-item"><input type="checkbox" /> Förbereda presentation</label>
+          <label class="checklist-item"><input type="checkbox" /> Skicka påminnelse 1 vecka innan</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- GUESTLIST VIEW -->
+    <div class="view" id="view-guestlist">
+      <h1 class="doc-title" id="guestlist-title" style="margin-bottom: 6px;">Gästlista</h1>
+      <div class="doc-meta" id="guestlist-event" style="margin-bottom: 20px;">Vårmingel 15 mars</div>
+
+      <div class="event-summary" id="guestlist-summary">
+        <div class="event-summary-badge"><strong>24</strong> Totalt</div>
+        <div class="event-summary-badge"><strong>12</strong> Bekräftade</div>
+        <div class="event-summary-badge"><strong>9</strong> Väntande</div>
+        <div class="event-summary-badge"><strong>3</strong> Tackat nej</div>
+      </div>
+
+      <table class="guest-table" id="guestlist-table">
+        <thead>
+          <tr><th>Namn</th><th>E-post</th><th>Företag</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Anna Svensson</td><td>anna@foretaget.se</td><td>Företaget AB</td><td><span class="guest-status bekraftad">Bekräftad</span></td></tr>
+          <tr><td>Erik Johansson</td><td>erik@konsult.se</td><td>Konsult &amp; Co</td><td><span class="guest-status bekraftad">Bekräftad</span></td></tr>
+          <tr><td>Maria Lindberg</td><td>maria@startup.io</td><td>StartUp Nordic</td><td><span class="guest-status bjuden">Bjuden</span></td></tr>
+          <tr><td>Jonas Ek</td><td>jonas@byra.se</td><td>Byrån AB</td><td><span class="guest-status bjuden">Bjuden</span></td></tr>
+          <tr><td>Sara Holm</td><td>sara@invest.se</td><td>InvestCo</td><td><span class="guest-status tackat-nej">Tackat nej</span></td></tr>
+          <tr><td>Karin Nilsson</td><td>karin@advokat.se</td><td>Advokatfirman</td><td><span class="guest-status bekraftad">Bekräftad</span></td></tr>
+          <tr><td>Per Andersson</td><td>per@tech.se</td><td>TechSweden</td><td><span class="guest-status bjuden">Bjuden</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- EVENTS ARCHIVE -->
+    <div class="view" id="view-events-archive">
+      <h1 class="doc-title" style="margin-bottom: 6px;">Tidigare event</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">Historik över genomförda event</div>
+
+      <div class="event-card" style="opacity: 0.7; cursor: default;">
+        <div class="event-card-header">
+          <span class="event-badge" style="background: rgba(154,151,146,0.15); color: var(--muted);">Genomfört</span>
+          <span class="event-guests">👥 38 gäster</span>
+        </div>
+        <div class="event-card-title">Julmingel 2025</div>
+        <div class="event-meta">
+          <span>📅 12 dec 2025</span>
+          <span>📍 Grand Hôtel, Stockholm</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DASHBOARD ═══════════════════════════════════ -->
+    <div class="view" id="view-dashboard">
+      <span class="doc-icon">📊</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">God morgon, Jenny</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">Onsdag 19 februari 2026 · Här är din dagliga briefing</div>
+
+      <div class="dashboard-cards">
+        <div class="dash-card">
+          <div class="dash-card-icon">📅</div>
+          <div class="dash-card-value">2</div>
+          <div class="dash-card-label">Möten idag</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-icon">📧</div>
+          <div class="dash-card-value">3</div>
+          <div class="dash-card-label">Uppföljningar att skicka</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-icon">📄</div>
+          <div class="dash-card-value">1</div>
+          <div class="dash-card-label">Offert väntar svar</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-icon">🎉</div>
+          <div class="dash-card-value">24</div>
+          <div class="dash-card-label">Dagar till Vårmingel</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Senaste aktivitet</h2>
+      <div class="activity-feed">
+        <div class="feed-item">
+          <span class="feed-item-icon">🤖</span>
+          <div class="feed-item-text"><strong>Relationshanteraren</strong> föreslog uppföljning: "14 dagar sedan du pratade med Maria Lindberg"</div>
+          <span class="feed-item-time">08:30</span>
+        </div>
+        <div class="feed-item">
+          <span class="feed-item-icon">✨</span>
+          <div class="feed-item-text"><strong>Innehållsskaparen</strong> genererade nytt LinkedIn-inlägg från marknadskommentarer</div>
+          <span class="feed-item-time">07:45</span>
+        </div>
+        <div class="feed-item">
+          <span class="feed-item-icon">📅</span>
+          <div class="feed-item-text"><strong>Mötesassistenten</strong> skapade pre-brief för möte med Erik Johansson kl 14:00</div>
+          <span class="feed-item-time">07:00</span>
+        </div>
+        <div class="feed-item">
+          <span class="feed-item-icon">📰</span>
+          <div class="feed-item-text"><strong>Redaktören</strong> sammanställde utkast till nyhetsbrev #4 — redo för granskning</div>
+          <span class="feed-item-time">Igår 22:00</span>
+        </div>
+        <div class="feed-item">
+          <span class="feed-item-icon">💼</span>
+          <div class="feed-item-text"><strong>Försäljningsassistenten</strong> påminnelse: Offert till Konsult &amp; Co skickad för 7 dagar sedan, inget svar</div>
+          <span class="feed-item-time">Igår 18:00</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">Veckans innehåll</h2>
+      <div class="mini-calendar">
+        <div class="cal-day"><div class="cal-day-name">Mån</div><div class="cal-day-num">17</div><div class="cal-day-dot blue"></div></div>
+        <div class="cal-day"><div class="cal-day-name">Tis</div><div class="cal-day-num">18</div><div class="cal-day-dot"></div></div>
+        <div class="cal-day today"><div class="cal-day-name">Ons</div><div class="cal-day-num">19</div><div class="cal-day-dot gold"></div></div>
+        <div class="cal-day"><div class="cal-day-name">Tor</div><div class="cal-day-num">20</div><div class="cal-day-dot"></div></div>
+        <div class="cal-day"><div class="cal-day-name">Fre</div><div class="cal-day-num">21</div><div class="cal-day-dot blue"></div></div>
+        <div class="cal-day"><div class="cal-day-name">Lör</div><div class="cal-day-num">22</div><div class="cal-day-dot"></div></div>
+        <div class="cal-day"><div class="cal-day-name">Sön</div><div class="cal-day-num">23</div><div class="cal-day-dot"></div></div>
+      </div>
+
+      <h2 class="section-title" style="margin-top: 36px;">Automatiserade flöden</h2>
+      <div class="flow-chain">
+        <div class="flow-chain-title">🤝 Nätverka → Kund-kedjan</div>
+        <div class="flow-steps">
+          <span class="flow-step">Mingel</span><span class="flow-arrow">→</span>
+          <span class="flow-step active-step">Kontakt skapas</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Möte bokas</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Pre-brief</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Möte</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Actions</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Offert</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Uppföljning</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Kund ✓</span>
+        </div>
+      </div>
+      <div class="flow-chain">
+        <div class="flow-chain-title">🎉 Event-kedjan</div>
+        <div class="flow-steps">
+          <span class="flow-step active-step">Event skapas</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Inbjudan + inlägg</span><span class="flow-arrow">→</span>
+          <span class="flow-step">RSVP</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Tackmail</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Recap-inlägg</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Uppföljning</span>
+        </div>
+      </div>
+      <div class="flow-chain">
+        <div class="flow-chain-title">✍️ Content-kedjan</div>
+        <div class="flow-steps">
+          <span class="flow-step">Marknadskommentar</span><span class="flow-arrow">→</span>
+          <span class="flow-step active-step">LinkedIn + IG</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Nyhetsbrev-sektion</span><span class="flow-arrow">→</span>
+          <span class="flow-step">Publiceras</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ KONTAKTER ═══════════════════════════════════ -->
+    <div class="view" id="view-contacts">
+      <span class="doc-icon">👥</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">Alla kontakter</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">12 kontakter · 3 kunder · 5 prospekt · 4 nätverk</div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-card-header"><div class="contact-avatar">AS</div><div><div class="contact-name">Anna Svensson</div><div class="contact-company">Företaget AB</div></div></div>
+          <span class="contact-tag kund">Kund</span>
+          <div class="contact-last">Senaste kontakt: 12 feb 2026</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-header"><div class="contact-avatar">EJ</div><div><div class="contact-name">Erik Johansson</div><div class="contact-company">Konsult &amp; Co</div></div></div>
+          <span class="contact-tag prospekt">Prospekt</span>
+          <div class="contact-last">Senaste kontakt: 5 feb 2026</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-header"><div class="contact-avatar">ML</div><div><div class="contact-name">Maria Lindberg</div><div class="contact-company">StartUp Nordic</div></div></div>
+          <span class="contact-tag prospekt">Prospekt</span>
+          <div class="contact-last">Senaste kontakt: 4 feb 2026 · <span style="color:#e07070;">14 dagar sedan!</span></div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-header"><div class="contact-avatar">JE</div><div><div class="contact-name">Jonas Ek</div><div class="contact-company">Byrån AB</div></div></div>
+          <span class="contact-tag natverk">Nätverk</span>
+          <div class="contact-last">Senaste kontakt: 15 jan 2026</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-header"><div class="contact-avatar">KN</div><div><div class="contact-name">Karin Nilsson</div><div class="contact-company">Advokatfirman</div></div></div>
+          <span class="contact-tag kund">Kund</span>
+          <div class="contact-last">Senaste kontakt: 18 feb 2026</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-header"><div class="contact-avatar">PA</div><div><div class="contact-name">Per Andersson</div><div class="contact-company">TechSweden</div></div></div>
+          <span class="contact-tag natverk">Nätverk</span>
+          <div class="contact-last">Senaste kontakt: 20 jan 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PIPELINE ════════════════════════════════════ -->
+    <div class="view" id="view-pipeline">
+      <span class="doc-icon">📊</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">Pipeline</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">Visuell vy över alla kontakter i säljprocessen</div>
+      <div class="pipeline">
+        <div class="pipeline-col">
+          <div class="pipeline-col-header blue-border">Nätverk (4)</div>
+          <div class="pipeline-item">Jonas Ek<div class="pipeline-item-sub">Byrån AB · Träffades på mingel</div></div>
+          <div class="pipeline-item">Per Andersson<div class="pipeline-item-sub">TechSweden · LinkedIn-kontakt</div></div>
+          <div class="pipeline-item">Lisa Bergström<div class="pipeline-item-sub">Fastighets AB · Referens från Karin</div></div>
+          <div class="pipeline-item">Magnus Holm<div class="pipeline-item-sub">Invest Nordic · Branschevent</div></div>
+        </div>
+        <div class="pipeline-col">
+          <div class="pipeline-col-header gold-border">Prospekt (5)</div>
+          <div class="pipeline-item">Erik Johansson<div class="pipeline-item-sub">Konsult &amp; Co · Möte bokat 19 feb</div></div>
+          <div class="pipeline-item">Maria Lindberg<div class="pipeline-item-sub">StartUp Nordic · Uppföljning behövs</div></div>
+          <div class="pipeline-item">Sara Holm<div class="pipeline-item-sub">InvestCo · Intresserad av pension</div></div>
+          <div class="pipeline-item">Henrik Dahl<div class="pipeline-item-sub">Dahl Konsulting · Första möte klart</div></div>
+          <div class="pipeline-item">Eva Strand<div class="pipeline-item-sub">Strand &amp; Partners · Vill ha offert</div></div>
+        </div>
+        <div class="pipeline-col">
+          <div class="pipeline-col-header" style="border-color:#d870a0;">Offert skickad (1)</div>
+          <div class="pipeline-item">Erik Johansson<div class="pipeline-item-sub">Konsult &amp; Co · 45 000 kr/år · Skickad 12 feb</div></div>
+        </div>
+        <div class="pipeline-col">
+          <div class="pipeline-col-header green-border">Kund (3)</div>
+          <div class="pipeline-item">Anna Svensson<div class="pipeline-item-sub">Företaget AB · Kund sedan sep 2025</div></div>
+          <div class="pipeline-item">Karin Nilsson<div class="pipeline-item-sub">Advokatfirman · Kund sedan nov 2025</div></div>
+          <div class="pipeline-item">Thomas Berg<div class="pipeline-item-sub">Berg Holding · Kund sedan jan 2026</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ MÖTEN ═══════════════════════════════════════ -->
+    <div class="view" id="view-meetings">
+      <span class="doc-icon">📅</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">Kommande möten</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">3 möten denna vecka</div>
+      <div class="meeting-card">
+        <div class="meeting-card-header"><span class="meeting-date-badge">📅 Idag 14:00</span><span class="meeting-type-badge">Uppföljning</span></div>
+        <div class="meeting-card-title">Erik Johansson — Offertgenomgång</div>
+        <div class="meeting-card-participants">👤 Erik Johansson (Konsult &amp; Co) · 📍 Digitalt (Teams)</div>
+      </div>
+      <div class="meeting-card">
+        <div class="meeting-card-header"><span class="meeting-date-badge">📅 Idag 16:30</span><span class="meeting-type-badge">Första möte</span></div>
+        <div class="meeting-card-title">Eva Strand — Intro &amp; behovsanalys</div>
+        <div class="meeting-card-participants">👤 Eva Strand (Strand &amp; Partners) · 📍 Kontoret</div>
+      </div>
+      <div class="meeting-card">
+        <div class="meeting-card-header"><span class="meeting-date-badge">📅 Fre 21 feb, 10:00</span><span class="meeting-type-badge">Kvartalsuppföljning</span></div>
+        <div class="meeting-card-title">Anna Svensson — Portföljgenomgång Q1</div>
+        <div class="meeting-card-participants">👤 Anna Svensson (Företaget AB) · 📍 Kontoret</div>
+      </div>
+      <div style="margin-top:20px;padding:16px 20px;background:rgba(201,169,110,0.05);border:1px solid rgba(201,169,110,0.2);border-radius:10px;max-width:640px;">
+        <div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:6px;">🤖 Mötesassistentens pre-brief</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;"><strong style="color:var(--text);">Erik Johansson (14:00):</strong> Offert på 45 000 kr/år skickad 12 feb. Erik driver Konsult &amp; Co med 15 anställda. Främst intresserad av tjänstepension och kapitalförsäkring i bolaget.</div>
+      </div>
+    </div>
+
+    <!-- ═══ MÖTESANTECKNINGAR ═══════════════════════════ -->
+    <div class="view" id="view-meeting-notes">
+      <span class="doc-icon">📝</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">Mötesanteckningar</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">Sökbara anteckningar från alla möten</div>
+      <div class="meeting-card">
+        <div class="meeting-card-header"><span class="meeting-date-badge">📅 5 feb 2026</span><span class="meeting-type-badge">Första möte</span></div>
+        <div class="meeting-card-title">Erik Johansson — Behovsanalys</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:8px;">Erik driver Konsult &amp; Co, 15 anställda. Vill se över tjänstepension och placera bolagsöverskott...</div>
+      </div>
+      <div class="meeting-card">
+        <div class="meeting-card-header"><span class="meeting-date-badge">📅 28 jan 2026</span><span class="meeting-type-badge">Kvartalsuppföljning</span></div>
+        <div class="meeting-card-title">Anna Svensson — Q4 genomgång</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:8px;">Portföljen +8,2% YTD. Anna nöjd med allokeringen. Action: ta fram förslag på buffertlösning...</div>
+      </div>
+      <div class="meeting-card">
+        <div class="meeting-card-header"><span class="meeting-date-badge">📅 15 jan 2026</span><span class="meeting-type-badge">Intro</span></div>
+        <div class="meeting-card-title">Maria Lindberg — Nätverksmöte</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:8px;">Maria grundare av StartUp Nordic. Intresserad av personaloptioner och skatteplanering vid exit...</div>
+      </div>
+    </div>
+
+    <!-- ═══ ERBJUDANDEN ═════════════════════════════════ -->
+    <div class="view" id="view-offers">
+      <span class="doc-icon">📄</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">Aktiva offerter</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">2 aktiva offerter · 1 väntar svar</div>
+      <div class="offer-card">
+        <div class="offer-card-header"><span class="offer-status skickad">Skickad</span><span class="offer-amount">45 000 kr/år</span></div>
+        <div class="offer-card-title">Konsult &amp; Co — Helhetslösning pensionsplanering</div>
+        <div class="offer-card-meta">👤 Erik Johansson · Skickad 12 feb 2026 · Väntar svar (7 dagar)</div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-card-header"><span class="offer-status utkast">Utkast</span><span class="offer-amount">32 000 kr/år</span></div>
+        <div class="offer-card-title">Strand &amp; Partners — Kapitalförvaltning</div>
+        <div class="offer-card-meta">👤 Eva Strand · Utkast skapad 18 feb 2026</div>
+      </div>
+      <div class="offer-card" style="opacity:0.6;">
+        <div class="offer-card-header"><span class="offer-status accepterad">Accepterad</span><span class="offer-amount">38 000 kr/år</span></div>
+        <div class="offer-card-title">Advokatfirman — Förmögenhetsplanering</div>
+        <div class="offer-card-meta">👤 Karin Nilsson · Accepterad 2 nov 2025</div>
+      </div>
+      <div style="margin-top:20px;padding:16px 20px;background:rgba(201,169,110,0.05);border:1px solid rgba(201,169,110,0.2);border-radius:10px;max-width:640px;">
+        <div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:6px;">🤖 Försäljningsassistentens tips</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Offerten till Erik Johansson har varit utan svar i 7 dagar. Förslag: skicka en mjuk uppföljning.</div>
+      </div>
+    </div>
+
+    <!-- ═══ OFFERTMALLAR ════════════════════════════════ -->
+    <div class="view" id="view-offer-templates">
+      <span class="doc-icon">📋</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">Offertmallar</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">3 mallar tillgängliga</div>
+      <div class="offer-card"><div class="offer-card-header"><span class="offer-status" style="background:rgba(201,169,110,0.15);color:var(--gold);">Mall</span></div><div class="offer-card-title">Helhetslösning — Privatperson</div><div class="offer-card-meta">Pensionsplanering · Kapitalallokering · Skatteoptimering</div></div>
+      <div class="offer-card"><div class="offer-card-header"><span class="offer-status" style="background:rgba(201,169,110,0.15);color:var(--gold);">Mall</span></div><div class="offer-card-title">Företagspaket — Kapitalförvaltning</div><div class="offer-card-meta">Kapitalförsäkring · Tjänstepension · Bolagsstruktur</div></div>
+      <div class="offer-card"><div class="offer-card-header"><span class="offer-status" style="background:rgba(201,169,110,0.15);color:var(--gold);">Mall</span></div><div class="offer-card-title">Generationsskifte</div><div class="offer-card-meta">Successionplanering · Skatteeffektiv överlåtelse · Familjerådgivning</div></div>
+    </div>
+
+    <!-- ═══ NYHETSBREV — UTKAST ═════════════════════════ -->
+    <div class="view" id="view-newsletter-drafts">
+      <span class="doc-icon">📰</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">Nyhetsbrev</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">3 utkast · 247 prenumeranter</div>
+      <div class="newsletter-card">
+        <div class="newsletter-card-header"><span class="newsletter-status utkast">Utkast</span><span style="font-size:11px;color:var(--muted);">Senast redigerad idag</span></div>
+        <div class="newsletter-card-title">Cefund Nyhetsbrev #4 — Februari 2026</div>
+        <div class="newsletter-card-meta">Marknadskommentar · Tips: pensionsöversyn · Event-promo: Vårmingel</div>
+      </div>
+      <div class="newsletter-card">
+        <div class="newsletter-card-header"><span class="newsletter-status skickat">Skickat</span><span style="font-size:11px;color:var(--muted);">28 jan 2026 · 62% öppningsgrad</span></div>
+        <div class="newsletter-card-title">Cefund Nyhetsbrev #3 — Januari 2026</div>
+        <div class="newsletter-card-meta">Marknadsutsikter 2026 · Riksbankens räntebesked · Tips: 3:12-reglerna</div>
+      </div>
+      <div class="newsletter-card">
+        <div class="newsletter-card-header"><span class="newsletter-status skickat">Skickat</span><span style="font-size:11px;color:var(--muted);">15 dec 2025 · 58% öppningsgrad</span></div>
+        <div class="newsletter-card-title">Cefund Nyhetsbrev #2 — December 2025</div>
+        <div class="newsletter-card-meta">Årssammanfattning · Skattetips inför nyår · Julmingel-recap</div>
+      </div>
+      <div style="margin-top:20px;padding:16px 20px;background:rgba(201,169,110,0.05);border:1px solid rgba(201,169,110,0.2);border-radius:10px;max-width:640px;">
+        <div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:6px;">🤖 Redaktörens förslag</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Utkast #4 innehåller: marknadskommentar, topp-LinkedIn-inlägg denna månad, och event-promo för Vårmingel. Föreslår ämnesrad: "Riksbanken sänker — vad det betyder för dig"</div>
+      </div>
+    </div>
+
+    <!-- ═══ PRENUMERANTER ═══════════════════════════════ -->
+    <div class="view" id="view-newsletter-subscribers">
+      <span class="doc-icon">👥</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">Prenumeranter</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">247 prenumeranter · 62% genomsnittlig öppningsgrad</div>
+      <div class="event-summary" style="margin-bottom:24px;">
+        <div class="event-summary-badge"><strong>247</strong> Totalt</div>
+        <div class="event-summary-badge"><strong>198</strong> Aktiva</div>
+        <div class="event-summary-badge"><strong>42</strong> Nya (30 dagar)</div>
+        <div class="event-summary-badge"><strong>7</strong> Avregistrerade</div>
+      </div>
+      <table class="guest-table">
+        <thead><tr><th>Namn</th><th>E-post</th><th>Sedan</th><th>Öppningsgrad</th></tr></thead>
+        <tbody>
+          <tr><td>Anna Svensson</td><td>anna@foretaget.se</td><td>Sep 2025</td><td>92%</td></tr>
+          <tr><td>Erik Johansson</td><td>erik@konsult.se</td><td>Jan 2026</td><td>100%</td></tr>
+          <tr><td>Maria Lindberg</td><td>maria@startup.io</td><td>Feb 2026</td><td>—</td></tr>
+          <tr><td>Karin Nilsson</td><td>karin@advokat.se</td><td>Nov 2025</td><td>83%</td></tr>
+          <tr><td>Per Andersson</td><td>per@tech.se</td><td>Dec 2025</td><td>67%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ═══ UPPGIFTER — IDAG ════════════════════════════ -->
+    <div class="view" id="view-tasks-today">
+      <span class="doc-icon">✅</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">Idag</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">5 uppgifter · 2 hög prioritet</div>
+      <div class="task-item"><input type="checkbox" class="task-checkbox" /><div class="task-content"><div class="task-title">Förbered offertgenomgång med Erik Johansson<span class="task-tag mote">möte</span></div><div class="task-source">Från möte 5 feb · Deadline: idag 14:00</div></div><span class="task-priority hog">Hög</span></div>
+      <div class="task-item"><input type="checkbox" class="task-checkbox" /><div class="task-content"><div class="task-title">Skicka uppföljning till Maria Lindberg<span class="task-tag mote">möte</span></div><div class="task-source">Relationshanteraren föreslog · 14 dagar utan kontakt</div></div><span class="task-priority hog">Hög</span></div>
+      <div class="task-item"><input type="checkbox" class="task-checkbox" /><div class="task-content"><div class="task-title">Granska nyhetsbrevsutkast #4<span class="task-tag content">content</span></div><div class="task-source">Redaktören sammanställde utkast</div></div><span class="task-priority medel">Medel</span></div>
+      <div class="task-item"><input type="checkbox" class="task-checkbox" /><div class="task-content"><div class="task-title">Publicera LinkedIn-inlägg om Riksbankens räntesänkning<span class="task-tag content">content</span></div><div class="task-source">Innehållsskaparen genererade — väntar på godkännande</div></div><span class="task-priority medel">Medel</span></div>
+      <div class="task-item"><input type="checkbox" class="task-checkbox" /><div class="task-content"><div class="task-title">Beställ catering till Vårmingel<span class="task-tag event">event</span></div><div class="task-source">Eventplaneraren påminnelse · Deadline: 28 feb</div></div><span class="task-priority lag">Låg</span></div>
+    </div>
+
+    <!-- ═══ UPPGIFTER — DENNA VECKA ═════════════════════ -->
+    <div class="view" id="view-tasks-week">
+      <span class="doc-icon">📅</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">Denna vecka</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">Vecka 8 · 12 uppgifter kvar</div>
+      <h2 class="section-title" style="margin-top:0;">Onsdag 19 feb</h2>
+      <div class="task-item"><input type="checkbox" class="task-checkbox" /><div class="task-content"><div class="task-title">Offertgenomgång Erik Johansson<span class="task-tag mote">möte</span></div><div class="task-source">14:00 · Digitalt</div></div><span class="task-priority hog">Hög</span></div>
+      <div class="task-item"><input type="checkbox" class="task-checkbox" /><div class="task-content"><div class="task-title">Intro Eva Strand<span class="task-tag mote">möte</span></div><div class="task-source">16:30 · Kontoret</div></div><span class="task-priority hog">Hög</span></div>
+      <h2 class="section-title">Torsdag 20 feb</h2>
+      <div class="task-item"><input type="checkbox" class="task-checkbox" /><div class="task-content"><div class="task-title">Färdigställ offert till Eva Strand<span class="task-tag offert">offert</span></div><div class="task-source">Baserat på intro-möte</div></div><span class="task-priority medel">Medel</span></div>
+      <div class="task-item"><input type="checkbox" class="task-checkbox" /><div class="task-content"><div class="task-title">Skicka påminnelse om Vårmingel<span class="task-tag event">event</span></div><div class="task-source">Eventplaneraren · Till alla som inte RSVP:at</div></div><span class="task-priority lag">Låg</span></div>
+      <h2 class="section-title">Fredag 21 feb</h2>
+      <div class="task-item"><input type="checkbox" class="task-checkbox" /><div class="task-content"><div class="task-title">Portföljgenomgång Anna Svensson<span class="task-tag mote">möte</span></div><div class="task-source">10:00 · Kontoret</div></div><span class="task-priority medel">Medel</span></div>
+      <div class="task-item"><input type="checkbox" class="task-checkbox" /><div class="task-content"><div class="task-title">Veckorapport — sammanfatta veckans resultat<span class="task-tag content">content</span></div><div class="task-source">Projektledaren · Automatisk påminnelse</div></div><span class="task-priority lag">Låg</span></div>
+    </div>
+
+    <!-- ═══ AI-TEAM — AGENTER ═══════════════════════════ -->
+    <div class="view" id="view-ai-agents">
+      <span class="doc-icon">🤖</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">AI-Team</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">8 agenter · 7 aktiva · 47 åtgärder denna vecka</div>
+      <div class="agent-grid">
+        <div class="agent-card">
+          <div class="agent-card-header"><span class="agent-icon">👑</span><div><div class="agent-name">Chefsassistenten</div><div class="agent-role">Daglig briefing &amp; prioritering</div></div></div>
+          <span class="agent-status aktiv"><span class="agent-status-dot"></span> Aktiv</span>
+          <div class="agent-stats"><strong>12</strong> åtgärder denna vecka · Ansvarar för <strong>Dashboard</strong></div>
+          <div class="agent-log"><div class="agent-log-item"><span class="agent-log-time">08:30</span> Genererade daglig briefing</div><div class="agent-log-item"><span class="agent-log-time">08:00</span> Prioriterade 5 uppgifter för idag</div></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-card-header"><span class="agent-icon">🤝</span><div><div class="agent-name">Relationshanteraren</div><div class="agent-role">Kontakter &amp; uppföljningar</div></div></div>
+          <span class="agent-status aktiv"><span class="agent-status-dot"></span> Aktiv</span>
+          <div class="agent-stats"><strong>8</strong> åtgärder denna vecka · Ansvarar för <strong>Kontakter</strong></div>
+          <div class="agent-log"><div class="agent-log-item"><span class="agent-log-time">08:30</span> Föreslog uppföljning: Maria Lindberg</div><div class="agent-log-item"><span class="agent-log-time">Igår</span> Uppdaterade status: Erik → Prospekt</div></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-card-header"><span class="agent-icon">📅</span><div><div class="agent-name">Mötesassistenten</div><div class="agent-role">Pre-briefs &amp; mötesbearbetning</div></div></div>
+          <span class="agent-status aktiv"><span class="agent-status-dot"></span> Aktiv</span>
+          <div class="agent-stats"><strong>6</strong> åtgärder denna vecka · Ansvarar för <strong>Möten</strong></div>
+          <div class="agent-log"><div class="agent-log-item"><span class="agent-log-time">07:00</span> Skapade pre-brief: Erik Johansson</div><div class="agent-log-item"><span class="agent-log-time">Igår</span> Extraherade actions från möte med Henrik</div></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-card-header"><span class="agent-icon">💼</span><div><div class="agent-name">Försäljningsassistenten</div><div class="agent-role">Offerter &amp; pipeline</div></div></div>
+          <span class="agent-status aktiv"><span class="agent-status-dot"></span> Aktiv</span>
+          <div class="agent-stats"><strong>5</strong> åtgärder denna vecka · Ansvarar för <strong>Erbjudanden</strong></div>
+          <div class="agent-log"><div class="agent-log-item"><span class="agent-log-time">Igår</span> Påminnelse: Erik-offert utan svar (7 dagar)</div><div class="agent-log-item"><span class="agent-log-time">Mån</span> Skrev utkast: Offert Eva Strand</div></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-card-header"><span class="agent-icon">✨</span><div><div class="agent-name">Innehållsskaparen</div><div class="agent-role">Inlägg &amp; batchgenerering</div></div></div>
+          <span class="agent-status aktiv"><span class="agent-status-dot"></span> Aktiv</span>
+          <div class="agent-stats"><strong>9</strong> åtgärder denna vecka · Ansvarar för <strong>Content</strong></div>
+          <div class="agent-log"><div class="agent-log-item"><span class="agent-log-time">07:45</span> Genererade LinkedIn-inlägg från marknadsdata</div><div class="agent-log-item"><span class="agent-log-time">Igår</span> Batch: 7 inlägg redo för granskning</div></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-card-header"><span class="agent-icon">📰</span><div><div class="agent-name">Redaktören</div><div class="agent-role">Nyhetsbrev &amp; innehållskompilering</div></div></div>
+          <span class="agent-status aktiv"><span class="agent-status-dot"></span> Aktiv</span>
+          <div class="agent-stats"><strong>4</strong> åtgärder denna vecka · Ansvarar för <strong>Nyhetsbrev</strong></div>
+          <div class="agent-log"><div class="agent-log-item"><span class="agent-log-time">Igår</span> Sammanställde utkast: Nyhetsbrev #4</div><div class="agent-log-item"><span class="agent-log-time">Mån</span> Föreslog ämnesrad baserat på bästa inlägg</div></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-card-header"><span class="agent-icon">🎉</span><div><div class="agent-name">Eventplaneraren</div><div class="agent-role">Eventlogistik &amp; inbjudningar</div></div></div>
+          <span class="agent-status aktiv"><span class="agent-status-dot"></span> Aktiv</span>
+          <div class="agent-stats"><strong>3</strong> åtgärder denna vecka · Ansvarar för <strong>Event</strong></div>
+          <div class="agent-log"><div class="agent-log-item"><span class="agent-log-time">Igår</span> Påminnelse: beställ catering (deadline 28 feb)</div><div class="agent-log-item"><span class="agent-log-time">Mån</span> Skickade påminnelse till 9 ej RSVP:ade</div></div>
+        </div>
+        <div class="agent-card">
+          <div class="agent-card-header"><span class="agent-icon">✅</span><div><div class="agent-name">Projektledaren</div><div class="agent-role">Tasks, påminnelser, deadlines</div></div></div>
+          <span class="agent-status pausad"><span class="agent-status-dot"></span> Pausad</span>
+          <div class="agent-stats"><strong>0</strong> åtgärder denna vecka · Ansvarar för <strong>Uppgifter</strong></div>
+          <div class="agent-log"><div class="agent-log-item"><span class="agent-log-time">—</span> Väntar på aktivering</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ AI-AKTIVITETSLOGG ═══════════════════════════ -->
+    <div class="view" id="view-ai-log">
+      <span class="doc-icon">📋</span>
+      <h1 class="doc-title" style="margin-bottom: 6px;">Aktivitetslogg</h1>
+      <div class="doc-meta" style="margin-bottom: 28px;">Alla AI-åtgärder de senaste 7 dagarna</div>
+      <div class="activity-feed" style="max-width:700px;">
+        <div class="feed-item"><span class="feed-item-icon">👑</span><div class="feed-item-text"><strong>Chefsassistenten</strong> genererade daglig briefing med 5 prioriterade uppgifter</div><span class="feed-item-time">Idag 08:30</span></div>
+        <div class="feed-item"><span class="feed-item-icon">🤝</span><div class="feed-item-text"><strong>Relationshanteraren</strong> föreslog uppföljning: "14 dagar sedan Maria Lindberg"</div><span class="feed-item-time">Idag 08:30</span></div>
+        <div class="feed-item"><span class="feed-item-icon">✨</span><div class="feed-item-text"><strong>Innehållsskaparen</strong> genererade LinkedIn-inlägg från marknadskommentarer</div><span class="feed-item-time">Idag 07:45</span></div>
+        <div class="feed-item"><span class="feed-item-icon">📅</span><div class="feed-item-text"><strong>Mötesassistenten</strong> skapade pre-brief för möte med Erik Johansson</div><span class="feed-item-time">Idag 07:00</span></div>
+        <div class="feed-item"><span class="feed-item-icon">📰</span><div class="feed-item-text"><strong>Redaktören</strong> sammanställde utkast till Nyhetsbrev #4</div><span class="feed-item-time">Igår 22:00</span></div>
+        <div class="feed-item"><span class="feed-item-icon">💼</span><div class="feed-item-text"><strong>Försäljningsassistenten</strong> flaggade: Erik-offert utan svar (7 dagar)</div><span class="feed-item-time">Igår 18:00</span></div>
+        <div class="feed-item"><span class="feed-item-icon">🎉</span><div class="feed-item-text"><strong>Eventplaneraren</strong> skickade RSVP-påminnelse till 9 gäster (Vårmingel)</div><span class="feed-item-time">Mån 10:00</span></div>
+        <div class="feed-item"><span class="feed-item-icon">💼</span><div class="feed-item-text"><strong>Försäljningsassistenten</strong> skrev offertutkast: Eva Strand</div><span class="feed-item-time">Mån 09:00</span></div>
+        <div class="feed-item"><span class="feed-item-icon">📰</span><div class="feed-item-text"><strong>Redaktören</strong> föreslog ämnesrad: "Riksbanken sänker — vad det betyder för dig"</div><span class="feed-item-time">Mån 08:00</span></div>
+        <div class="feed-item"><span class="feed-item-icon">✨</span><div class="feed-item-text"><strong>Innehållsskaparen</strong> batch-genererade 7 inlägg (LinkedIn tankeledare)</div><span class="feed-item-time">Sön 20:00</span></div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Batch export bar (fast under scroll-arean) -->
@@ -1735,15 +2890,294 @@
 
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeModal()">Avbryt</button>
-      <button class="btn btn-gold">Lägg till</button>
+      <button class="btn btn-gold" onclick="saveSource()">Lägg till</button>
     </div>
   </div>
 </div>
 
 <!-- ═══ JAVASCRIPT ═══════════════════════════════════ -->
 <script>
+  // ─── STATE ───────────────────────────────────────────
   let panelOpen = false;
   let activePlatform = 'linkedin';
+  let customSources = JSON.parse(localStorage.getItem('ws_sources') || '[]');
+
+  // ─── NEW VIEW NAVIGATION ──────────────────────────────
+  const newViewLabels = {
+    'dashboard': 'Dashboard',
+    'contacts': 'Alla kontakter',
+    'pipeline': 'Pipeline',
+    'meetings': 'Kommande möten',
+    'meeting-notes': 'Mötesanteckningar',
+    'offers': 'Aktiva offerter',
+    'offer-templates': 'Offertmallar',
+    'newsletter-drafts': 'Nyhetsbrev',
+    'newsletter-subscribers': 'Prenumeranter',
+    'tasks-today': 'Uppgifter — Idag',
+    'tasks-week': 'Uppgifter — Denna vecka',
+    'ai-agents': 'AI-Team',
+    'ai-log': 'Aktivitetslogg'
+  };
+
+  const newViewSections = {
+    'dashboard': 'Översikt',
+    'contacts': 'Kontakter',
+    'pipeline': 'Kontakter',
+    'meetings': 'Möten',
+    'meeting-notes': 'Möten',
+    'offers': 'Erbjudanden',
+    'offer-templates': 'Erbjudanden',
+    'newsletter-drafts': 'Nyhetsbrev',
+    'newsletter-subscribers': 'Nyhetsbrev',
+    'tasks-today': 'Uppgifter',
+    'tasks-week': 'Uppgifter',
+    'ai-agents': 'AI-Team',
+    'ai-log': 'AI-Team'
+  };
+
+  function showNewView(viewId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelector('.main-content').classList.remove('batch-mode');
+    const target = document.getElementById('view-' + viewId);
+    if (target) target.classList.add('active');
+
+    // Uppdatera sidebar active state
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.sidebar-sub-item').forEach(i => i.classList.remove('active'));
+
+    // Breadcrumb
+    const section = newViewSections[viewId] || '';
+    const label = newViewLabels[viewId] || viewId;
+    if (section && section !== label) {
+      document.getElementById('breadcrumb').innerHTML = `
+        <span class="crumb">${section}</span>
+        <span class="sep">›</span>
+        <span class="crumb current">${label}</span>
+      `;
+    } else {
+      document.getElementById('breadcrumb').innerHTML = `
+        <span class="crumb current">${label}</span>
+      `;
+    }
+
+    // Stäng generate-panelen om den är öppen
+    if (panelOpen) {
+      panelOpen = false;
+      document.getElementById('generate-panel').classList.add('hidden');
+    }
+  }
+
+  // ─── SOURCE MAPPING ──────────────────────────────────
+  const SOURCE_VIEW_MAP = {
+    'Investeringsfilosofi': 'investering',
+    'Kundberättelser': 'kund',
+    'Marknadskommentarer': 'marknad',
+    'Hemsida (cefund.se)': 'hemsida',
+    'cefund.se': 'hemsida',
+    'Teamets bakgrund': 'team'
+  };
+
+  function getSourceText(name) {
+    const viewId = SOURCE_VIEW_MAP[name];
+    if (viewId) {
+      const el = document.getElementById('view-' + viewId);
+      return el ? (el.querySelector('.doc-body')?.textContent || '').replace(/\s+/g, ' ').trim() : '';
+    }
+    const custom = customSources.find(s => s.name === name);
+    return custom?.content || '';
+  }
+
+  // ─── CLAUDE API ──────────────────────────────────────
+  async function callClaude(userMessage) {
+    const response = await fetch('/api/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 2048,
+        messages: [{ role: 'user', content: userMessage }]
+      })
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error?.message || `API-fel ${response.status}`);
+    return data.content[0].text;
+  }
+
+  // ─── PROMPT BUILDER ──────────────────────────────────
+  function buildPrompt(platform, tone, selectedSources) {
+    const sourcesText = selectedSources
+      .map(name => `### ${name}\n${getSourceText(name)}`)
+      .join('\n\n');
+
+    const platformRules = platform === 'linkedin'
+      ? `- 150–300 ord\n- Börja med en stark hook (1–2 meningar)\n- Tydliga radbrytningar mellan stycken\n- Avsluta med 3–5 relevanta hashtags på svenska`
+      : `- 80–150 ord\n- Får använda emojis för struktur\n- Listor med 1️⃣ 2️⃣ 3️⃣ fungerar bra\n- Avsluta med "Länk i bio 👆" och 5–7 hashtags`;
+
+    return `Du är copywriter för Cefund, ett oberoende finansiellt rådgivningsföretag i Stockholm. Tagline: "Oberoende rådgivning. Ditt bästa intresse, alltid."
+
+Skriv ett ${platform === 'linkedin' ? 'LinkedIn' : 'Instagram'}-inlägg med tonläget "${tone}".
+
+KÄLLMATERIAL:
+${sourcesText}
+
+KRAV:
+${platformRules}
+
+Returnera BARA inläggstexten — ingen rubrik, ingen förklaring, inga citationstecken runt texten.`;
+  }
+
+  // ─── GENERATE SINGLE ─────────────────────────────────
+  async function generate() {
+    const box = document.getElementById('preview-box');
+    const spinner = document.getElementById('preview-spinner');
+    const actions = document.getElementById('preview-actions');
+    const csvBtn = document.getElementById('btn-add-csv');
+
+    const checkedSources = Array.from(
+      document.querySelectorAll('.source-list .source-item input[type="checkbox"]:checked')
+    ).map(cb => cb.parentElement.textContent.trim());
+
+    if (checkedSources.length === 0) {
+      box.textContent = 'Välj minst en källa för att generera ett inlägg.';
+      box.classList.remove('has-content');
+      return;
+    }
+
+    const tone = document.querySelector('.tone-select').value;
+    const prompt = buildPrompt(activePlatform, tone, checkedSources);
+
+    box.textContent = '';
+    box.classList.remove('has-content');
+    spinner.classList.add('show');
+    actions.classList.remove('show');
+    if (csvBtn) { csvBtn.textContent = '+ Lägg till i CSV'; csvBtn.classList.remove('btn-added'); csvBtn.disabled = false; }
+
+    try {
+      const text = await callClaude(prompt);
+      box.textContent = text;
+      box.classList.add('has-content');
+      actions.classList.add('show');
+    } catch (err) {
+      box.textContent = `Fel: ${err.message}`;
+    } finally {
+      spinner.classList.remove('show');
+    }
+  }
+
+  // ─── ADD SOURCE ──────────────────────────────────────
+  function saveSource() {
+    const activeForm = document.querySelector('.modal-form.active');
+    if (!activeForm) return;
+    const type = activeForm.id.replace('form-', '');
+    let name = '', content = '';
+
+    if (type === 'transkript' || type === 'dokument') {
+      name = activeForm.querySelector('input[type="text"]')?.value.trim() || '';
+      content = activeForm.querySelector('textarea')?.value.trim() || '';
+    } else if (type === 'webblank') {
+      const url = activeForm.querySelector('input[type="url"]')?.value.trim() || '';
+      name = activeForm.querySelector('input[type="text"]')?.value.trim() || url;
+      content = `URL: ${url}`;
+    } else if (type === 'presentation') {
+      name = activeForm.querySelector('input[type="text"]')?.value.trim() || '';
+      content = '[Presentation – klipp in text från presentationen här]';
+    }
+
+    if (!name) { alert('Ange en titel'); return; }
+    if (!content || content === '[Presentation – klipp in text från presentationen här]' && type !== 'presentation') {
+      alert('Lägg till innehåll'); return;
+    }
+
+    const source = { id: Date.now().toString(), name, content, type };
+    customSources.push(source);
+    localStorage.setItem('ws_sources', JSON.stringify(customSources));
+
+    addSourceToSidebar(source);
+    addSourceToPanel(source.name);
+    createSourceView(source);
+    closeModal();
+    activeForm.querySelectorAll('input, textarea').forEach(el => el.value = '');
+  }
+
+  function addSourceToSidebar(source) {
+    const categoryMap = {
+      transkript: 'transkript',
+      presentation: 'presentationer',
+      dokument: 'dokument',
+      webblank: 'weblankar'
+    };
+    const sub = document.getElementById(categoryMap[source.type] || 'dokument');
+    if (!sub) return;
+    const item = document.createElement('div');
+    item.className = 'sidebar-sub-item';
+    item.textContent = source.name;
+    item.onclick = function() { showDoc('custom-' + source.id, this); };
+    sub.appendChild(item);
+  }
+
+  function addSourceToPanel(name) {
+    const sourceList = document.querySelector('.source-list');
+    if (sourceList) {
+      const label = document.createElement('label');
+      label.className = 'source-item';
+      label.innerHTML = `<input type="checkbox" /> ${name}`;
+      sourceList.appendChild(label);
+    }
+    const chips = document.querySelector('.source-chips');
+    if (chips) {
+      const chip = document.createElement('label');
+      chip.className = 'source-chip';
+      chip.innerHTML = `<input type="checkbox" />${name}`;
+      chip.onclick = function() { toggleChip(this); };
+      chips.appendChild(chip);
+    }
+  }
+
+  function createSourceView(source) {
+    const icons = { transkript: '🎙️', dokument: '📄', presentation: '📊', webblank: '🌐' };
+    const typeLabels = { transkript: 'Transkript', dokument: 'Dokument', presentation: 'Presentation', webblank: 'Webblänk' };
+    const div = document.createElement('div');
+    div.className = 'view';
+    div.id = 'view-custom-' + source.id;
+    const safeContent = source.content
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\n/g, '</p><p>');
+    div.innerHTML = `
+      <span class="doc-icon">${icons[source.type] || '📄'}</span>
+      <h1 class="doc-title">${source.name}</h1>
+      <div class="doc-meta">
+        <span>Lagt till ${new Date().toLocaleDateString('sv-SE', {day: 'numeric', month: 'short', year: 'numeric'})}</span>
+        <span class="dot">●</span>
+        <span>${typeLabels[source.type] || 'Källa'}</span>
+      </div>
+      <hr class="doc-divider" />
+      <div class="doc-body"><p>${safeContent}</p></div>
+      <button class="doc-source-btn" onclick="togglePanel()">
+        ✨ Generera inlägg från detta källmaterial
+      </button>
+    `;
+    document.querySelector('.main-content').appendChild(div);
+  }
+
+  // ─── SEARCH ──────────────────────────────────────────
+  function searchSidebar(query) {
+    const q = query.toLowerCase().trim();
+    document.querySelectorAll('.sidebar-sub-item').forEach(item => {
+      item.style.display = !q || item.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+    if (q) {
+      document.querySelectorAll('.sidebar-sub').forEach(sub => sub.classList.add('open'));
+    }
+  }
+
+  // ─── INIT CUSTOM SOURCES ─────────────────────────────
+  function initCustomSources() {
+    customSources.forEach(source => {
+      addSourceToSidebar(source);
+      addSourceToPanel(source.name);
+      createSourceView(source);
+    });
+  }
 
   const samplePosts = {
     linkedin: `Många av mina kunder kommer med en känsla av att deras ekonomi är utspridd och ostrukturerad — pengar på sju ställen, fonder de inte minns att de valt, och en pension de inte förstår.
@@ -1862,24 +3296,7 @@ Länk i bio 👆
     el.classList.add('active');
   }
 
-  function generate() {
-    const box = document.getElementById('preview-box');
-    const spinner = document.getElementById('preview-spinner');
-    const actions = document.getElementById('preview-actions');
-
-    box.textContent = '';
-    box.classList.remove('has-content');
-    spinner.classList.add('show');
-    actions.classList.remove('show');
-
-    setTimeout(() => {
-      spinner.classList.remove('show');
-      const text = samplePosts[activePlatform];
-      box.textContent = text;
-      box.classList.add('has-content');
-      actions.classList.add('show');
-    }, 1600);
-  }
+  // generate() definieras ovan (Claude API-version)
 
   function copyPreview() {
     const text = document.getElementById('preview-box').textContent;
@@ -2063,76 +3480,125 @@ Bild 5: Pengarna i ditt bolag borde jobba. Länk i bio 👆
     _origShowDoc(docId, el);
   };
 
-  function batchGenerate() {
+  const batchTypeInstructions = {
+    'linkedin-tankeled': 'Tankeledare: Inled med stark hook. Dela en insikt. Avsluta med fråga eller CTA. Korta stycken.',
+    'linkedin-tips':     'Tipslista: Tydlig rubrik. Numrerade tips (3–5 st) med kort förklaring. Avsluta med hashtags.',
+    'ig-quote':          'Quote: Kort, slagkraftigt citat på 1–2 meningar, sedan "— Cefund" på ny rad.',
+    'ig-karusell':       'Karusell: "Bild 1: [hook]\n\nBild 2: [poäng]\n\nBild 3: [poäng]\n\nBild 4: [poäng]\n\nBild 5: [CTA + hashtags]"'
+  };
+
+  function makeBatchCard(i, meta, text) {
+    const num = document.createElement('span');
+    num.className = 'batch-card-num';
+    num.textContent = i + 1;
+
+    const badge = document.createElement('span');
+    badge.className = 'post-platform ' + meta.platform;
+    badge.textContent = meta.label;
+
+    const typeTag = document.createElement('span');
+    typeTag.className = 'batch-card-type';
+    typeTag.textContent = meta.type;
+
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.className = 'batch-check';
+    cb.addEventListener('change', () => toggleBatchSelect(i, cb));
+
+    const header = document.createElement('div');
+    header.className = 'batch-card-header';
+    header.append(num, badge, typeTag, cb);
+
+    const body = document.createElement('div');
+    body.className = 'batch-card-body';
+    body.contentEditable = 'true';
+    body.textContent = text;
+    body.addEventListener('input', () => updateCharCount(body, i));
+
+    const charEl = document.createElement('span');
+    charEl.className = 'batch-char-count';
+    charEl.id = 'char-' + i;
+    charEl.textContent = text.length + ' tecken';
+
+    const välj = document.createElement('button');
+    välj.className = 'btn-copy';
+    välj.textContent = '+ Välj';
+    välj.addEventListener('click', () => selectSingle(i, cb));
+
+    const footer = document.createElement('div');
+    footer.className = 'batch-card-footer';
+    footer.append(charEl, välj);
+
+    const card = document.createElement('div');
+    card.className = 'batch-card';
+    card.dataset.idx = i;
+    card.append(header, body, footer);
+    return card;
+  }
+
+  async function batchGenerate() {
     const type = selectedBatchType;
-    const allSamples = batchSamples[type] || [];
     const meta = typeLabels[type];
     const grid = document.getElementById('batch-grid');
     const empty = document.getElementById('batch-empty');
+    const btn = document.querySelector('.batch-generate-btn');
+
+    const checkedSources = Array.from(
+      document.querySelectorAll('.source-chips .source-chip.checked')
+    ).map(chip => chip.textContent.trim());
+
+    if (checkedSources.length === 0) {
+      alert('Välj minst en källa');
+      return;
+    }
+
+    const tone = document.querySelector('.config-select').value;
+
+    const prompt = `Du är copywriter för Cefund, ett oberoende finansiellt rådgivningsföretag i Stockholm.
+
+Generera 7 unika ${meta.platform === 'linkedin' ? 'LinkedIn' : 'Instagram'}-inlägg av typen "${meta.type}" med tonläget "${tone}".
+
+KÄLLMATERIAL:
+${checkedSources.map(name => `### ${name}\n${getSourceText(name)}`).join('\n\n')}
+
+FORMAT FÖR VARJE INLÄGG:
+${batchTypeInstructions[type] || 'Standard inlägg med hook, brödtext och hashtags.'}
+
+VIKTIGT: Separera varje inlägg med exakt denna rad på en egen rad: ---INLÄGG---
+Returnera BARA de 7 inläggen. Inga kommentarer, inga numreringar utanför texten.`;
 
     batchSelected.clear();
     updateBatchBar();
     grid.innerHTML = '';
-
-    // Cykla igenom samples om det finns färre än 7
-    const samples = [];
-    for (let i = 0; i < 7; i++) {
-      samples.push(allSamples[i % allSamples.length]);
-    }
-
-    for (let i = 0; i < 7; i++) {
-      const text = samples[i];
-
-      const num = document.createElement('span');
-      num.className = 'batch-card-num';
-      num.textContent = i + 1;
-
-      const badge = document.createElement('span');
-      badge.className = 'post-platform ' + meta.platform;
-      badge.textContent = meta.label;
-
-      const typeTag = document.createElement('span');
-      typeTag.className = 'batch-card-type';
-      typeTag.textContent = meta.type;
-
-      const cb = document.createElement('input');
-      cb.type = 'checkbox';
-      cb.className = 'batch-check';
-      cb.addEventListener('change', () => toggleBatchSelect(i, cb));
-
-      const header = document.createElement('div');
-      header.className = 'batch-card-header';
-      header.append(num, badge, typeTag, cb);
-
-      const body = document.createElement('div');
-      body.className = 'batch-card-body';
-      body.contentEditable = 'true';
-      body.textContent = text;
-      body.addEventListener('input', () => updateCharCount(body, i));
-
-      const charEl = document.createElement('span');
-      charEl.className = 'batch-char-count';
-      charEl.id = 'char-' + i;
-      charEl.textContent = text.length + ' tecken';
-
-      const välj = document.createElement('button');
-      välj.className = 'btn-copy';
-      välj.textContent = '+ Välj';
-      välj.addEventListener('click', () => selectSingle(i, cb));
-
-      const footer = document.createElement('div');
-      footer.className = 'batch-card-footer';
-      footer.append(charEl, välj);
-
-      const card = document.createElement('div');
-      card.className = 'batch-card';
-      card.dataset.idx = i;
-      card.append(header, body, footer);
-      grid.appendChild(card);
-    }
-
     empty.style.display = 'none';
     grid.style.display = 'grid';
+
+    for (let i = 0; i < 7; i++) {
+      grid.appendChild(makeBatchCard(i, meta, '⏳ Genererar...'));
+    }
+
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ Genererar...'; }
+
+    try {
+      const text = await callClaude(prompt);
+      const posts = text.split('---INLÄGG---').map(p => p.trim()).filter(Boolean);
+
+      for (let i = 0; i < 7; i++) {
+        const body = document.querySelector(`.batch-card[data-idx="${i}"] .batch-card-body`);
+        if (body) {
+          const content = posts[i] || posts[i % Math.max(posts.length, 1)] || '';
+          body.textContent = content;
+          updateCharCount(body, i);
+        }
+      }
+    } catch (err) {
+      for (let i = 0; i < 7; i++) {
+        const body = document.querySelector(`.batch-card[data-idx="${i}"] .batch-card-body`);
+        if (body) body.textContent = `Fel: ${err.message}`;
+      }
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = '✨ Generera 7 inlägg'; }
+    }
   }
 
   function toggleBatchSelect(idx, checkbox) {
@@ -2377,18 +3843,121 @@ Kolla ditt val idag. Det tar 5 minuter och kan vara det bästa du gör för fram
     URL.revokeObjectURL(url);
   }
 
-  // Reset CSV button when new post is generated
-  const _origGenerate = generate;
-  generate = function() {
-    const btn = document.getElementById('btn-add-csv');
-    btn.textContent = '+ Lägg till i CSV';
-    btn.classList.remove('btn-added');
-    btn.disabled = false;
-    _origGenerate();
+  // ─── EVENT NAVIGATION ─────────────────────────────────
+  const eventData = {
+    varmingel: {
+      title: 'Vårmingel 15 mars',
+      date: '15 mars 2026, 17:00–20:00',
+      location: 'Brasserie Astoria, Nybrogatan 6, Stockholm',
+      type: 'Mingel & networking',
+      description: 'Informellt mingel för befintliga kunder och prospects. Syftet är att stärka relationer och presentera Cefunds tjänster i en avslappnad miljö.',
+      badge: 'Planering',
+      badgeClass: 'planering',
+      guests: 24, confirmed: 12, pending: 9, declined: 3
+    },
+    kundevent: {
+      title: 'Kundevent april',
+      date: '10 april 2026, 18:00–21:00',
+      location: 'Fotografiska, Stadsgårdshamnen 22, Stockholm',
+      type: 'Presentation & mingel',
+      description: 'Kundkväll med kort presentation om marknadsutsikter 2026, följt av mingel. Fokus på befintliga kunder och deras nätverk.',
+      badge: 'Bekräftat',
+      badgeClass: 'bekraftat',
+      guests: 42, confirmed: 28, pending: 11, declined: 3
+    }
   };
 
-  // Init: expand dokument section
+  function showEvents() {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelector('.main-content').classList.remove('batch-mode');
+    document.getElementById('view-events').classList.add('active');
+    document.getElementById('breadcrumb').innerHTML =
+      '<span class="crumb current">Kommande event</span>';
+
+    // Uppdatera sidebar active state
+    document.querySelectorAll('.sidebar-sub-item').forEach(i => i.classList.remove('active'));
+  }
+
+  function showEvent(eventId, el) {
+    const data = eventData[eventId];
+    if (!data) return;
+
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelector('.main-content').classList.remove('batch-mode');
+
+    // Uppdatera event-detail med rätt data
+    document.getElementById('event-detail-title').textContent = data.title;
+    document.getElementById('event-detail-meta').innerHTML = `
+      <span>📅 ${data.date}</span>
+      <span class="dot">●</span>
+      <span>📍 ${data.location.split(',')[0]}</span>
+    `;
+
+    document.getElementById('view-event-detail').classList.add('active');
+
+    // Breadcrumb
+    document.getElementById('breadcrumb').innerHTML = `
+      <span class="crumb" onclick="showEvents()" style="cursor:pointer;">Kommande event</span>
+      <span class="sep">›</span>
+      <span class="crumb current">${data.title}</span>
+    `;
+
+    // Sidebar active
+    document.querySelectorAll('.sidebar-sub-item').forEach(i => i.classList.remove('active'));
+    if (el) el.classList.add('active');
+  }
+
+  function showGuestlist(eventId, el) {
+    const data = eventData[eventId];
+    if (!data) return;
+
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelector('.main-content').classList.remove('batch-mode');
+
+    // Uppdatera gästlista-vy
+    document.getElementById('guestlist-title').textContent = 'Gästlista';
+    document.getElementById('guestlist-event').textContent = data.title;
+    document.getElementById('guestlist-summary').innerHTML = `
+      <div class="event-summary-badge"><strong>${data.guests}</strong> Totalt</div>
+      <div class="event-summary-badge"><strong>${data.confirmed}</strong> Bekräftade</div>
+      <div class="event-summary-badge"><strong>${data.pending}</strong> Väntande</div>
+      <div class="event-summary-badge"><strong>${data.declined}</strong> Tackat nej</div>
+    `;
+
+    document.getElementById('view-guestlist').classList.add('active');
+
+    // Breadcrumb
+    document.getElementById('breadcrumb').innerHTML = `
+      <span class="crumb" onclick="showEvents()" style="cursor:pointer;">Event</span>
+      <span class="sep">›</span>
+      <span class="crumb" onclick="showEvent('${eventId}')" style="cursor:pointer;">${data.title}</span>
+      <span class="sep">›</span>
+      <span class="crumb current">Gästlista</span>
+    `;
+
+    // Sidebar active
+    document.querySelectorAll('.sidebar-sub-item').forEach(i => i.classList.remove('active'));
+    if (el) el.classList.add('active');
+  }
+
+  // Utöka showView för event-archive
+  const _origShowViewEvent = showView;
+  showView = function(viewId) {
+    if (viewId === 'events-archive') {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.querySelector('.main-content').classList.remove('batch-mode');
+      document.getElementById('view-events-archive').classList.add('active');
+      document.getElementById('breadcrumb').innerHTML =
+        '<span class="crumb current">Tidigare event</span>';
+      document.querySelectorAll('.sidebar-sub-item').forEach(i => i.classList.remove('active'));
+      return;
+    }
+    _origShowViewEvent(viewId);
+  };
+
+  // Init
   document.getElementById('dokument').classList.add('open');
+  initCustomSources();
 </script>
 </body>
 </html>
