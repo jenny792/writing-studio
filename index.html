@@ -654,42 +654,66 @@
     <input type="text" placeholder="Sök..." />
   </div>
 
-  <!-- BIBLIOTEK -->
+  <!-- KÄLLBIBLIOTEK -->
   <div class="sidebar-section">
-    <div class="sidebar-section-label">Bibliotek</div>
+    <div class="sidebar-section-label">Källbibliotek</div>
 
-    <!-- Råmaterial -->
-    <div class="sidebar-item expanded" onclick="toggleSection('raw', this)">
-      <span class="item-icon">📗</span>
-      <span class="item-text">Råmaterial</span>
+    <!-- Transkript -->
+    <div class="sidebar-item" onclick="toggleSection('transkript', this)">
+      <span class="item-icon">🎙️</span>
+      <span class="item-text">Transkript</span>
       <span class="item-arrow">›</span>
     </div>
-    <div class="sidebar-sub open" id="raw">
-      <div class="sidebar-sub-item active" onclick="showDoc('investering', this)">Investeringsfilosofi</div>
-      <div class="sidebar-sub-item" onclick="showDoc('kund', this)">Kundberättelser</div>
-      <div class="sidebar-sub-item" onclick="showDoc('marknad', this)">Marknadskommentarer</div>
+    <div class="sidebar-sub" id="transkript">
+      <div class="sidebar-sub-item active" onclick="showDoc('investering', this)">Investerardag feb 2026</div>
+    </div>
+
+    <!-- Presentationer -->
+    <div class="sidebar-item" onclick="toggleSection('presentationer', this)">
+      <span class="item-icon">📊</span>
+      <span class="item-text">Presentationer</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub" id="presentationer">
+      <div class="sidebar-sub-item" onclick="showDoc('kund', this)">Kundpresentation Q1 2026</div>
+    </div>
+
+    <!-- Dokument -->
+    <div class="sidebar-item expanded" onclick="toggleSection('dokument', this)">
+      <span class="item-icon">📄</span>
+      <span class="item-text">Dokument</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub open" id="dokument">
+      <div class="sidebar-sub-item" onclick="showDoc('marknad', this)">Marknadskommentarer feb</div>
       <div class="sidebar-sub-item" onclick="showDoc('team', this)">Teamets bakgrund</div>
     </div>
 
-    <!-- Inlägg -->
+    <!-- Webblänkar -->
+    <div class="sidebar-item" onclick="toggleSection('weblankar', this)">
+      <span class="item-icon">🌐</span>
+      <span class="item-text">Webblänkar</span>
+      <span class="item-arrow">›</span>
+    </div>
+    <div class="sidebar-sub" id="weblankar">
+      <div class="sidebar-sub-item" onclick="showDoc('hemsida', this)">cefund.se</div>
+    </div>
+  </div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- INLÄGG -->
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Inlägg</div>
+
     <div class="sidebar-item" onclick="toggleSection('posts-nav', this); showView('posts')">
       <span class="item-icon">📝</span>
-      <span class="item-text">Inlägg</span>
+      <span class="item-text">Alla inlägg</span>
       <span class="item-arrow">›</span>
     </div>
     <div class="sidebar-sub" id="posts-nav">
       <div class="sidebar-sub-item" onclick="filterPosts('linkedin', this)">LinkedIn</div>
       <div class="sidebar-sub-item" onclick="filterPosts('instagram', this)">Instagram</div>
-    </div>
-
-    <!-- Hemsidor -->
-    <div class="sidebar-item" onclick="toggleSection('sites', this)">
-      <span class="item-icon">🌐</span>
-      <span class="item-text">Hemsidor</span>
-      <span class="item-arrow">›</span>
-    </div>
-    <div class="sidebar-sub" id="sites">
-      <div class="sidebar-sub-item" onclick="showDoc('hemsida', this)">cefund.se</div>
     </div>
   </div>
 
@@ -715,9 +739,9 @@
 <main class="main">
   <div class="main-topbar">
     <div class="breadcrumb" id="breadcrumb">
-      <span class="crumb">Böcker</span>
+      <span class="crumb">Transkript</span>
       <span class="sep">›</span>
-      <span class="crumb current">Investeringsfilosofi</span>
+      <span class="crumb current">Investerardag feb 2026</span>
     </div>
     <div class="topbar-actions">
       <button class="btn btn-ghost" onclick="togglePanel()">✨ Generera</button>
@@ -1067,15 +1091,18 @@ Länk i bio 👆
 
     // Update breadcrumb
     const titles = {
-      investering: 'Investeringsfilosofi',
-      kund: 'Kundberättelser',
-      marknad: 'Marknadskommentarer',
+      investering: 'Investerardag feb 2026',
+      kund: 'Kundpresentation Q1 2026',
+      marknad: 'Marknadskommentarer feb',
       team: 'Teamets bakgrund',
       hemsida: 'cefund.se'
     };
     const parents = {
-      investering: 'Böcker', kund: 'Böcker', marknad: 'Böcker', team: 'Böcker',
-      hemsida: 'Hemsidor'
+      investering: 'Transkript',
+      kund: 'Presentationer',
+      marknad: 'Dokument',
+      team: 'Dokument',
+      hemsida: 'Webblänkar'
     };
     document.getElementById('breadcrumb').innerHTML = `
       <span class="crumb">${parents[docId] || 'Bibliotek'}</span>
@@ -1149,8 +1176,8 @@ Länk i bio 👆
     });
   }
 
-  // Init: expand raw section
-  document.getElementById('raw').classList.add('open');
+  // Init: expand dokument section
+  document.getElementById('dokument').classList.add('open');
 </script>
 </body>
 </html>
